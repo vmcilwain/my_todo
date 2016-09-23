@@ -1,4 +1,4 @@
-# MyTodo
+# MyTodo - Not Ready for use yet!
 
 ## Installation
 
