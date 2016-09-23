@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["lovell.mcilwain@gmail.com"]
 
   spec.summary       = %q{A basic todo list with tagging.}
-  spec.description   = %q{A terminal based todo list that allows tagging of items}
+  spec.description   = %q{A terminal based todo list for creating todo items. Adding tags makes for an easy way to search for related items.}
   spec.homepage      = "https://github.com/vmcilwain/my_todo"
   spec.license       = "MIT"
 
@@ -35,4 +35,5 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'sqlite3', '~> 1.3.11'
 
   spec.metadata["yard.run"] = "yri"
+  spec.post_install_message = "Don't forget to migrate the db. bundle exec my_todo rake db:migrate"
 end
