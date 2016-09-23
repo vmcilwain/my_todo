@@ -21,11 +21,34 @@ Example of creating a todo item
 ```ruby
 my_todo create --body='hello world'
 ```
+will display
+
+```
+ToDo CREATED!
+
+
+ID: 4
+ToDo: hello world
+Tags: default
+Complete: false
+```
 
 Example of listing pending todos
 
 ```ruby
 my_todo list
+```
+
+will display
+
+```
+ToDos FOUND: 1
+
+
+ID: 3
+ToDo: hello world
+Tags: default
+Complete: false
 ```
 
 ## Development
