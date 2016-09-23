@@ -19,11 +19,16 @@ exec_type = ARGV[0]
 # Example:
 # todo create --body="hello world"
 # todo list
+gem_dir = File.expand_path("..",File.dirname(__FILE__))
+puts gem_dir
 if exec_type == 'rake'
   require 'rake'
   require 'pp'
+  pwd=Dir.pwd
+  Dir.chdir(gem_dir)
   Rake.application.init
   Rake.application.load_rakefile
+  Dir.chdir(pwd)
   Rake.application.invoke_task(ARGV[1])
 else
   require_relative '../lib/my_todo'
