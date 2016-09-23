@@ -1,39 +1,46 @@
 # MyTodo
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/my_todo`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
-
 ## Installation
 
-Add this line to your application's Gemfile:
+To install this gem onto your system
 
 ```ruby
-gem 'my_todo'
+gem install my_todo
 ```
 
-And then execute:
+## setup
+Create and migrate the DB
 
-    $ bundle
-
-Or install it yourself as:
-
-    $ gem install my_todo
+`bundle exec my_todo rake db:migrate`
 
 ## Usage
+Simply type `my_todo` to see a list of commands
 
-TODO: Write usage instructions here
+Example of creating a todo item
+
+```ruby
+my_todo create --body='hello world'
+```
+
+Example of listing pending todos
+
+```ruby
+my_todo list
+```
 
 ## Development
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+After checking out the repo, run `bin/setup` to install dependencies. Then `RAILS_ENV=development bundle exec my_todo rake db:migrate` to create the development DB. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+NOTE: In development, all commands must be run with the rails environment included. This is to make sure any changes made go to the right db.
+
+## Testing
+
+Run `RAILS_ENV=test bin/todo rake db:migrate` to create the test db. Then run `rake` to run the tests.
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/my_todo. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
-
+Bug reports and pull requests are welcome on GitHub at https://github.com/vmcilwain/my_todo. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
 
 ## License
 

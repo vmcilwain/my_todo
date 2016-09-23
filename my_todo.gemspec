@@ -7,20 +7,12 @@ Gem::Specification.new do |spec|
   spec.name          = "my_todo"
   spec.version       = MyTodo::VERSION
   spec.authors       = ["Vell"]
-  spec.email         = ["vmcilwain@me.com"]
+  spec.email         = ["lovell.mcilwain@gmail.com"]
 
   spec.summary       = %q{A basic todo list with tagging.}
   spec.description   = %q{A terminal based todo list that allows tagging of items}
-  spec.homepage      = "https://www.github.com/vmcilwain/my_todo"
+  spec.homepage      = "https://github.com/vmcilwain/my_todo"
   spec.license       = "MIT"
-
-  # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
-  # to allow pushing to a single host or delete this section to allow pushing to any host.
-  if spec.respond_to?(:metadata)
-    spec.metadata['allowed_push_host'] = "TODO: Set to 'http://mygemserver.com'"
-  else
-    raise "RubyGems 2.0 or newer is required to protect against public gem pushes."
-  end
 
   spec.files         = Dir["{bin,lib}/**/*", "LICENSE.txt", "README.md"]
   spec.test_files    = Dir["spec/**/*"]
