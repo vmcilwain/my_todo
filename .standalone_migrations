@@ -1,0 +1,6 @@
+db:
+    seeds: lib/db/seeds.rb
+    migrate: lib/db/migrate
+    schema: lib/db/schema.rb
+config:
+    database: lib/db/config.yml

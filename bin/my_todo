@@ -1,0 +1,30 @@
+#! /usr/bin/env ruby
+#
+# @author Lovell McIlwain
+#
+# Sets running environment for application (standalone_migration/ActiveRecord).
+# @note defaults to production unless rails environment is manually specified
+# @note example: RAILS_ENV=development todo list
+ENV['RAILS_ENV'] = ENV['RAILS_ENV'].nil? || ENV['RAILS_ENV'].empty? ? 'production' : ENV['RAILS_ENV']
+
+# Stores argement passed to the executable
+exec_type = ARGV[0]
+
+# Runs rake tasks from todo gem once it's installed.
+# Example:
+# todo rake some-task
+# todo rake some-task[args]
+#
+# Runs thor tasks as normal
+# Example:
+# todo create --body="hello world"
+# todo list
+if exec_type == 'rake'
+  require 'rake'
+  require 'pp'
+  Rake.application.init
+  Rake.application.load_rakefile
+  Rake.application.invoke_task(ARGV[1])
+else
+  require_relative '../lib/my_todo'
+end

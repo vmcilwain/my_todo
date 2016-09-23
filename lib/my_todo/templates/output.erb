@@ -1,0 +1,5 @@
+
+ID: <%= item.id %>
+ToDo: <%=item.body %>
+Tags: <%=item.tags.map(&:name).join(', ') %>
+Complete: <%=item.done %>

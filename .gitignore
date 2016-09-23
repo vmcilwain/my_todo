@@ -1,0 +1,13 @@
+/.bundle/
+/.yardoc
+/Gemfile.lock
+/_yardoc/
+/coverage/
+/doc/
+/pkg/
+/spec/reports/
+/tmp/
+/lib/db/todos_development.sqlite3
+/lib/db/todos_test.sqlite3
+/lib/db/todos_production.sqlite3
+/.byebug_history
