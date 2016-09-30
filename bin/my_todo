@@ -7,29 +7,44 @@
 # @note example: RAILS_ENV=development todo list
 ENV['RAILS_ENV'] = ENV['RAILS_ENV'].nil? || ENV['RAILS_ENV'].empty? ? 'production' : ENV['RAILS_ENV']
 
+# Set gem directory path
+gem_dir = "#{__dir__}/.."
+
+# Look in gem directory for resources first.
+$LOAD_PATH.unshift gem_dir
+
 # Stores argement passed to the executable
 exec_type = ARGV[0]
 
-# Runs rake tasks from todo gem once it's installed.
+# Runs rake tasks from my_todo gem once it's installed.
 # Example:
-# todo rake some-task
-# todo rake some-task[args]
+# my_todo rake some-task
+# my_todo rake some-task[args]
 #
 # Runs thor tasks as normal
 # Example:
-# todo create --body="hello world"
-# todo list
-gem_dir = File.expand_path("..",File.dirname(__FILE__))
-puts gem_dir
+# my_todo create --body="hello world"
+# my_todo list
+
 if exec_type == 'rake'
+  require_relative '../lib/setup'
   require 'rake'
   require 'pp'
+
+  # Generate standalone migration file configs for sqlite3
+  Setup.start(%w[db_config])
+  Setup.start(%w[standard_migrations_override])
+  # Get current working directory
   pwd=Dir.pwd
+  # Go into root of gems directory to load rakefile
   Dir.chdir(gem_dir)
   Rake.application.init
   Rake.application.load_rakefile
+  # Revert to original pwd for any path args passed to task.
   Dir.chdir(pwd)
+  # Run the rake task
   Rake.application.invoke_task(ARGV[1])
 else
+  # Run normal my_todo task
   require_relative '../lib/my_todo'
 end

@@ -1,0 +1,18 @@
+# To Run: rake db:migrate
+development:
+  adapter: sqlite3
+  database: <%= GEM_DIR %>/lib/db/todos_development.sqlite3
+  pool: 5
+  encoding: utf8
+# To Run: RAILS_ENV=test rake db:migrate
+test:
+  adapter: sqlite3
+  database: <%= GEM_DIR %>/lib/db/todos_test.sqlite3
+  pool: 5
+  encoding: utf8
+# To Run: RAILS_ENV=production rake db:migrate
+production:
+  adapter: sqlite3
+  database: <%= GEM_DIR %>/lib/db/todos_production.sqlite3
+  pool: 5
+  encoding: utf8
