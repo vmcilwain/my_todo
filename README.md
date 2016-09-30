@@ -1,5 +1,3 @@
-# MyTodo - Not Ready for use yet!
-
 ## Installation
 
 To install this gem onto your system
@@ -11,7 +9,7 @@ gem install my_todo
 ## setup
 Create and migrate the DB
 
-`bundle exec my_todo rake db:migrate`
+`my_todo rake db:migrate`
 
 ## Usage
 Simply type `my_todo` to see a list of commands
@@ -21,6 +19,7 @@ Example of creating a todo item
 ```ruby
 my_todo create --body='hello world'
 ```
+
 will display
 
 ```
@@ -53,13 +52,13 @@ Complete: false
 
 ## Development
 
-After checking out the repo, run `bin/setup` to install dependencies. Then `RAILS_ENV=development bundle exec my_todo rake db:migrate` to create the development DB. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+After checking out the repo, run `bin/setup` to install dependencies. Then `RAILS_ENV=development bin/my_todo rake db:migrate` to create the development DB. You can also run `RAILS_ENV=development bin/console` for an interactive prompt that will allow you to experiment.
 
-NOTE: In development, all commands must be run with the rails environment included. This is to make sure any changes made go to the right db.
+NOTE: In development, all commands must be run with the RAILS_ENV included. This is to make sure any changes made go to the right db. Any commands ran without the RAILS_ENV specified will default to production.
 
 ## Testing
 
-Run `RAILS_ENV=test bin/todo rake db:migrate` to create the test db. Then run `rake` to run the tests.
+Run `RAILS_ENV=test bin/my_todo rake db:migrate` to create the test db. Then run `rake` to run the RSpec tests.
 
 ## Contributing
 
