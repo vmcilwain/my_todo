@@ -1,9 +1,12 @@
 require 'thor'
 
+# Handles initial setup of application
 class Setup < Thor
   include Thor::Actions
-  source_root File.expand_path("../lib/my_todo/templates",__dir__)
-  GEM_DIR = File.expand_path("..", __dir__)
+  # Look into the following location for templates
+  source_root "#{__dir__}/../lib/my_todo/templates"
+  # Store the root of the gem directory
+  GEM_DIR = "#{__dir__}/.."
 
   desc 'db_config', 'Generate db configuration'
   def db_config
@@ -15,5 +18,3 @@ class Setup < Thor
     template "standalone_migrations.yml.erb", "#{__dir__}/../.standalone_migrations", {quiet: true, force: true}
   end
 end
-
-#Setup.start(ARGV)
