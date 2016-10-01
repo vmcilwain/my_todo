@@ -60,6 +60,14 @@ NOTE: In development, all commands must be run with the RAILS_ENV included. This
 
 Run `RAILS_ENV=test bin/my_todo rake db:migrate` to create the test db. Then run `rake` to run the RSpec tests.
 
+## Releasing
+To release a new version,
+* update the version number in `version.rb`
+* tag the the code `git tag v1.0.0`
+* push the tag `git push --tags`
+* then run `bundle exec rake build`
+* `gem push pkg/my_todo-verion`
+
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/vmcilwain/my_todo. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
