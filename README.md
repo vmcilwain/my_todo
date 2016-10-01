@@ -68,6 +68,9 @@ To release a new version,
 * then run `bundle exec rake build`
 * `gem push pkg/my_todo-verion`
 
+## Removing the gem
+To remove the gem simply type `gem uninstall my_todo`. Along with this, you will need to remove `$HOME/.my_todo` to remove the database.
+
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/vmcilwain/my_todo. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
