@@ -1,4 +1,4 @@
-# @author Lovell McIlwain#
+# @author Lovell McIlwain
 # Handles business logic for todo tags
 class Tag < ActiveRecord::Base
   # ActiveRecord asosciation to stubs

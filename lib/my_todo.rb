@@ -1,4 +1,4 @@
-# @author Lovell McIlwain#
+# @author Lovell McIlwain
 # Handles running the todo application
 require File.expand_path('../../lib/my_todo/version', __FILE__)
 require 'thor'
@@ -12,6 +12,7 @@ require_relative 'item'
 require_relative 'stub'
 require_relative 'tag'
 require_relative 'note'
+require_relative 'list'
 
 module MyTodo
   # Todo tasks using thor gem
@@ -46,10 +47,14 @@ module MyTodo
     desc "create --body='some text' [--done=true] [--tags='tag1 tag2']", 'create a todo'
     option :body
     option :done, default: false
+    option :status, default: 'in_progress'
     option :tags, default: 'default'
     option :created_at, default: DateTime.now
     def create
       begin
+        item_statuses = ::Item::STATUSES
+        item_statuses.each_with_index{|status, index| say "#{index}: #{status}"}
+        answer = ask("Chose a status by number").to_i
         item = Item.create!(options.except(:tags))
         options[:tags].split(' ').each{|tag| item.tags.create(name: tag) }
         say 'ToDo CREATED!'

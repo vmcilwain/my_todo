@@ -1,6 +1,8 @@
+# @author Lovell McIlwain
+#
+# Handles logic for initializing and updating of application
 require 'thor'
 
-# Handles initial setup of application
 class Setup < Thor
   include Thor::Actions
   # Look into the following location for templates
