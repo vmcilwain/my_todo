@@ -119,13 +119,26 @@ module MyTodo
       end
     end
 
-    desc "note --id=1 --body='text'", 'addes note to existing item'
+    desc "note --id=1 --body='text'", 'adds note to existing item'
     option :id
     option :body
     def note
       begin
         item = Item.where(id: options[:id]).first
         item.notes.create(body: options[:body])
+        output item.reload
+      rescue Exception => e
+        say e.message
+      end
+    end
+
+    desc 'rm_note --id=1 --noteid=1', 'remove note for exsiting item'
+    option :id
+    option :noteid
+    def rm_note
+      begin
+        item = Item.where(id: options[:id]).first
+        item.notes.where(id: options[:noteid]).first.destroy!
         output item.reload
       rescue Exception => e
         say e.message
