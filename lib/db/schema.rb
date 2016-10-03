@@ -10,13 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160913134610) do
+ActiveRecord::Schema.define(version: 20161003121448) do
 
   create_table "items", force: :cascade do |t|
     t.string   "body"
     t.boolean  "done"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "notes", force: :cascade do |t|
+    t.integer  "item_id"
+    t.text     "body"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["item_id"], name: "index_notes_on_item_id"
   end
 
   create_table "stubs", force: :cascade do |t|

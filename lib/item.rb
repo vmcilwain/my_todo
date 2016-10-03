@@ -8,6 +8,10 @@ class Item < ActiveRecord::Base
   # @note Item.first.tags
   # @note destroys associated stubs/tags when deleted
   has_many :tags, through: :stubs, dependent: :destroy
+  # ActiveRecord association to notes
+  # @note Item.first.notes
+  # @note destroys associated notes when deleted
+  has_many :notes, dependent: :destroy
   # ActiveModel validation to ensure body is present
   validates :body, presence: true
 end

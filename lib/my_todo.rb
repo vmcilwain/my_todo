@@ -11,6 +11,7 @@ require_relative 'ar_base'
 require_relative 'item'
 require_relative 'stub'
 require_relative 'tag'
+require_relative 'note'
 
 module MyTodo
   # Todo tasks using thor gem
@@ -58,7 +59,7 @@ module MyTodo
       end
     end
 
-    desc "update --id=1 --body='some text' [--done=true]", 'update an existing todo'
+    desc "update --id=TODO_ID --body='some text' [--done=true]", 'update an existing todo'
     option :id
     option :body
     option :done
@@ -74,7 +75,7 @@ module MyTodo
       end
     end
 
-    desc 'delete(ID)', 'destroy a todo'
+    desc 'delete(TODO_ID)', 'destroy a todo'
     def delete(id)
       begin
         item = Item.find_by_id(id)
@@ -93,10 +94,10 @@ module MyTodo
       items.each {|i| output i}
     end
 
-    desc "add_tag --todo-id=1 --tag=tag1", 'add a tag to an existing todo'
+    desc "tag --id=TODO_ID --tag=TAG_NAME", 'add a tag to an existing todo'
     option :id
     option :tag
-    def add_tag
+    def tag
       begin
         item = Item.where(id: options[:id]).first
         item.tags.create!(name: options[:tag])
@@ -105,7 +106,7 @@ module MyTodo
       end
     end
 
-    desc 'rm_tag --todo-id=1 --tag=tag1', 'remove tag from an existing todo'
+    desc 'rm_tag --id=TODO_ID --tag=TAG_NAME', 'remove tag from an existing todo'
     option :id
     option :tag
     def rm_tag
@@ -117,6 +118,33 @@ module MyTodo
         say e.message
       end
     end
+
+    desc "note --id=TODO_ID --body='text'", 'adds note to existing item'
+    option :id
+    option :body
+    def note
+      begin
+        item = Item.where(id: options[:id]).first
+        item.notes.create(body: options[:body])
+        output item.reload
+      rescue Exception => e
+        say e.message
+      end
+    end
+
+    desc 'rm_note --id=TODO_ID --noteid=NOTE_ID', 'remove note for exsiting item'
+    option :id
+    option :noteid
+    def rm_note
+      begin
+        item = Item.where(id: options[:id]).first
+        item.notes.where(id: options[:noteid]).first.destroy!
+        output item.reload
+      rescue Exception => e
+        say e.message
+      end
+    end
   end
 end
+
 MyTodo::Todo.start(ARGV)
