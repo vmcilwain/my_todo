@@ -62,6 +62,23 @@ Tags: default
 Complete: false
 ```
 
+Use aliasing to shorten the syntax:
+```
+#aliases
+alias m='my_todo'
+alias mlist='my_todo list'
+alias mcreate='my_todo create'
+alias mupdate='my_todo update'
+alias mdelete='my_todo delete'
+alias mtag='my_todo tag'
+alias mrmtag='my_todo rm_tag'
+alias mnote='my_todo note'
+alias mrmnote='my_todo rm_note'
+alias msearch='my_todo search'
+```
+
+Functions can be created around these actions to possibly shorten the syntax that much more
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then `RAILS_ENV=development bin/my_todo rake db:migrate` to create the development DB. You can also run `RAILS_ENV=development bin/console` for an interactive prompt that will allow you to experiment.
