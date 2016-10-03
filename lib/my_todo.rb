@@ -11,6 +11,7 @@ require_relative 'ar_base'
 require_relative 'item'
 require_relative 'stub'
 require_relative 'tag'
+require_relative 'note'
 
 module MyTodo
   # Todo tasks using thor gem
