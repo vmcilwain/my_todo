@@ -94,10 +94,10 @@ module MyTodo
       items.each {|i| output i}
     end
 
-    desc "add_tag --todo-id=1 --tag=tag1", 'add a tag to an existing todo'
+    desc "tag --todo-id=1 --tag=tag1", 'add a tag to an existing todo'
     option :id
     option :tag
-    def add_tag
+    def tag
       begin
         item = Item.where(id: options[:id]).first
         item.tags.create!(name: options[:tag])
@@ -118,6 +118,20 @@ module MyTodo
         say e.message
       end
     end
+
+    desc "note --id=1 --body='text'", 'addes note to existing item'
+    option :id
+    option :body
+    def note
+      begin
+        item = Item.where(id: options[:id]).first
+        item.notes.create(body: options[:body])
+        output item.reload
+      rescue Exception => e
+        say e.message
+      end
+    end
   end
 end
+
 MyTodo::Todo.start(ARGV)

@@ -10,11 +10,11 @@ describe MyTodo do
       end
 
       it 'finds todo item by id' do
-        expect{MyTodo::Todo.start( %W(search #{@todo3.id} ))}.to output("ToDos FOUND: 1\n\nID: 3\nToDo: always\nTags: \nComplete: \n").to_stdout
+        expect{MyTodo::Todo.start( %W(search #{@todo3.id} ))}.to output("ToDos FOUND: 1\n\nID: 3\nToDo: always\nTags: \nComplete: \n\n").to_stdout
       end
 
       it 'finds todo item by body' do
-        expect{MyTodo::Todo.start( %w[search nfl])}.to output("ToDos FOUND: 1\n\nID: 1\nToDo: nfl\nTags: \nComplete: \n").to_stdout
+        expect{MyTodo::Todo.start( %w[search nfl])}.to output("ToDos FOUND: 1\n\nID: 1\nToDo: nfl\nTags: \nComplete: \n\n").to_stdout
       end
     end
 
