@@ -1,3 +1,15 @@
+# My Todo
+
+## Summary
+This is yet another simple todo application. This was built because I found myself having to create quick reminders when things came up but needing to switch windows from the terminal to the todo application via the GUI. This application is the result of that one annoyance :). It is still a work in progress but I hope you find it useful.
+
+## Features
+* SQLIte3 backend (database is located in $HOME/.my_todo)
+* CRUD actions for todo items (Create, Read, Update & Delete)
+* Tag / Untag todo items to group / ungroup them.
+* Search for todo items
+* Add / Remove additional notes to todo items
+
 ## Installation
 
 To install this gem onto your system

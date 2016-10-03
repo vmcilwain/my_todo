@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["lovell.mcilwain@gmail.com"]
 
   spec.summary       = %q{A basic todo application with tags.}
-  spec.description   = %q{A terminal based todo application for creating todo items. Adding tags makes for an easy way to group and search for related items.}
+  spec.description   = %q{A terminal based todo application for creating todo items. Adding tags makes for an easy way to group and search for related items. Create additional notes for a todo item as new related information comes up}
   spec.homepage      = "https://github.com/vmcilwain/my_todo"
   spec.license       = "MIT"
 
