@@ -8,7 +8,7 @@ class Setup < Thor
   # Look into the following location for templates
   source_root "#{__dir__}/../../lib/my_todo/templates"
   # Store the root of the gem directory
-  GEM_DIR = "#{__dir__}/.."
+  GEM_DIR = "#{__dir__}/../.."
   # Store users home directory
   HOME_DIR = `echo $HOME`.chomp
 
