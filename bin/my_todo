@@ -27,7 +27,7 @@ exec_type = ARGV[0]
 # my_todo list
 
 if exec_type == 'rake'
-  require_relative '../lib/my_todo/setup'
+  require_relative '../lib/setup'
   require 'rake'
   require 'pp'
 
