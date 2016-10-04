@@ -5,24 +5,26 @@ describe MyTodo do
     context 'success search' do
       before do
         @todo1 = FactoryGirl.create(:item, body: 'nfl')
+        @todo1.tags.create(name: 'tag1')
         @todo2 = FactoryGirl.create(:item, body: 'rocks')
+        @todo2.notes.create(body: 'note1')
         @todo3 = FactoryGirl.create(:item, body: 'always')
       end
 
-      it 'finds todo item by id' do
-        expect{MyTodo::Todo.start( %W(search #{@todo3.id} ))}.to output("ToDos FOUND: 1\n\nID: 3\nToDo: always\nTags: \nComplete: \n\n").to_stdout
+      it 'finds todo item by body' do
+        expect{MyTodo::Todo.start( %w[search nfl])}.to output("ToDos FOUND: 1\n\nID: 1\nToDo: nfl\nTags: tag1\nComplete: \n\n").to_stdout
       end
 
-      it 'finds todo item by body' do
-        expect{MyTodo::Todo.start( %w[search nfl])}.to output("ToDos FOUND: 1\n\nID: 1\nToDo: nfl\nTags: \nComplete: \n\n").to_stdout
+      it 'finds todo item by tag' do
+        expect{MyTodo::Todo.start( %w[search tag1])}.to output("ToDos FOUND: 1\n\nID: 1\nToDo: nfl\nTags: tag1\nComplete: \n\n").to_stdout
+      end
+
+      it 'finds todo item by note body' do
+        expect{MyTodo::Todo.start( %w[search note1])}.to output("ToDos FOUND: 1\n\nID: 2\nToDo: rocks\nTags: \nComplete: \n\nNotes:\n\n1: note1\n\n\n").to_stdout
       end
     end
 
     context 'unsuccessful search' do
-      it 'returns no results when searching by invalid id' do
-        expect{MyTodo::Todo.start( %w(search 1))}.to output("ToDos FOUND: 0\n").to_stdout
-      end
-
       it 'returns no results when searching on invalid body' do
         expect{MyTodo::Todo.start( %w(search no_body))}.to output("ToDos FOUND: 0\n").to_stdout
       end

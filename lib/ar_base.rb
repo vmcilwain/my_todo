@@ -3,8 +3,11 @@
 # Handles database connection
 module ArBase
   # Set path based on bin/my_todo
-  path = if ENV['RAILS_ENV'] == 'test'
+  path = case ENV['RAILS_ENV']
+  when 'test'
     File.expand_path("../db/todos_test.sqlite3", __FILE__)
+  when 'development'
+    File.expand_path("../db/todos_development.sqlite3", __FILE__)
   else
     File.expand_path("#{`echo $HOME`.chomp}/.my_todo/data/todos_#{ENV['RAILS_ENV']}.sqlite3", __FILE__)
   end

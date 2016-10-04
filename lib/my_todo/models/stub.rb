@@ -1,4 +1,4 @@
-# @author Lovell McIlwain#
+# @author Lovell McIlwain
 # Handles business logic for todo stubs
 class Stub < ActiveRecord::Base
   # ActiveRecord assocation to item
