@@ -7,6 +7,7 @@ require 'sqlite3'
 require 'active_record'
 require 'active_model'
 require 'yaml'
+require 'ransack'
 require_relative 'ar_base'
 require_relative 'my_todo/models/item'
 require_relative 'my_todo/models/stub'
@@ -88,9 +89,9 @@ module MyTodo
       end
     end
 
-    desc 'search(ID || BODY)', 'search for todo'
-    def search(req)
-      items = Item.where('id = ? or body like ?', req, "%#{req}%")
+    desc 'search(TEXT)', 'search for todo by item body, tag name or note body'
+    def search(text)
+      items = Item.ransack(body_or_tags_name_or_notes_body_cont: text).result
       say "ToDos FOUND: #{items.count}"
       items.each {|item| output item}
     end
