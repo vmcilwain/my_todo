@@ -1,11 +1,9 @@
 
-ID: <%= item.id %>
-ToDo: <%=item.body %>
-Tags: <%=item.tags.map(&:name).join(', ') %>
-Complete: <%=item.done %>
+ID: <%= item.id %> | Tags: <%= item.tags.map(&:name).join(', ') %> | Complete: <%= item.done %>
+<%= item.body %>
 <% if item.notes.any? %>
 Notes:
 <% item.notes.each do |note| %>
-<%= note.id%>: <%= note.body %>
+<%= note.id %>: <%= note.body %>
 <% end %>
 <% end %>

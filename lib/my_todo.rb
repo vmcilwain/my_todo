@@ -23,7 +23,7 @@ module MyTodo
     # Private methods
     no_commands do
       def output(item)
-        say ERB.new(File.read(File.expand_path("../../lib/my_todo/templates/output.erb", __FILE__))).result(binding)
+        say ERB.new(File.read(File.expand_path("../../lib/my_todo/templates/output.erb", __FILE__)), nil, '-').result(binding)
       end
 
       def item

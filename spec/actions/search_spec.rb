@@ -13,15 +13,15 @@ describe MyTodo do
 
 
       it 'finds todo item by body' do
-        expect{MyTodo::Todo.start( %w[search nfl])}.to output("ToDos FOUND: 1\n\nID: 1\nToDo: nfl\nTags: tag1\nComplete: \n\n").to_stdout
+        expect{MyTodo::Todo.start( %w[search nfl])}.to output("ToDos FOUND: 1\n\nID: 1 | Tags: tag1 | Complete: \nnfl\n\n").to_stdout
       end
 
       it 'finds todo items by associated tag' do
-        expect{MyTodo::Todo.start( %w[search tag1])}.to output("ToDos FOUND: 1\n\nID: 1\nToDo: nfl\nTags: tag1\nComplete: \n\n").to_stdout
+        expect{MyTodo::Todo.start( %w[search tag1])}.to output("ToDos FOUND: 1\n\nID: 1 | Tags: tag1 | Complete: \nnfl\n\n").to_stdout
       end
 
       it 'finds todo items by associated notes content' do
-        expect{MyTodo::Todo.start( %w[search note1])}.to output("ToDos FOUND: 1\n\nID: 3\nToDo: always\nTags: \nComplete: \n\nNotes:\n\n1: note1\n\n\n").to_stdout
+        expect{MyTodo::Todo.start( %w[search note1])}.to output("ToDos FOUND: 1\n\nID: 3 | Tags:  | Complete: \nalways\n\nNotes:\n\n1: note1\n\n\n").to_stdout
       end
     end
 

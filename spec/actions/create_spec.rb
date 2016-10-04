@@ -21,7 +21,7 @@ describe MyTodo do
         end
 
         it 'displays the created todo item' do
-          expect{MyTodo::Todo.start(%w(create --body=wierdness_of_text))}.to output("ToDo CREATED!\n\nID: 1\nToDo: wierdness_of_text\nTags: default\nComplete: false\n\n").to_stdout
+          expect{MyTodo::Todo.start(%w(create --body=wierdness_of_text))}.to output("ToDo CREATED!\n\nID: 1 | Tags: default | Complete: false\nwierdness_of_text\n\n").to_stdout
         end
       end
 
@@ -31,7 +31,7 @@ describe MyTodo do
         end
 
         it 'displays the created todo item with tag' do
-          expect{MyTodo::Todo.start(%w(create --body=wierdness_of_text --tags=tag1))}.to output("ToDo CREATED!\n\nID: 1\nToDo: wierdness_of_text\nTags: tag1\nComplete: false\n\n").to_stdout
+          expect{MyTodo::Todo.start(%w(create --body=wierdness_of_text --tags=tag1))}.to output("ToDo CREATED!\n\nID: 1 | Tags: tag1 | Complete: false\nwierdness_of_text\n\n").to_stdout
         end
       end
 
@@ -44,7 +44,7 @@ describe MyTodo do
         end
 
         it 'displays the created to item with complete set to true' do
-          expect{MyTodo::Todo.start(%w[create --body=wierdness_of_text --done=true])}.to output("ToDo CREATED!\n\nID: 1\nToDo: wierdness_of_text\nTags: default\nComplete: true\n\n").to_stdout
+          expect{MyTodo::Todo.start(%w[create --body=wierdness_of_text --done=true])}.to output("ToDo CREATED!\n\nID: 1 | Tags: default | Complete: true\nwierdness_of_text\n\n").to_stdout
         end
       end
     end
