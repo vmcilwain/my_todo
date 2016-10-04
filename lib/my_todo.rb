@@ -142,6 +142,12 @@ module MyTodo
         say e.message
       end
     end
+
+    desc 'export(PATH)', 'export todos to an ASCII file'
+    def export(path)
+      home_path = `echo $HOME`.chomp
+      `echo '.dump' | sqlite3 #{home_path}/.my_todos/data/todos_#{ENV['RAILS_ENV']}.sqlite3 | gzip -c > todos_#{ENV['RAILS_ENV']}.dump.gz`
+    end
   end
 end
 
