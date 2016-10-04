@@ -1,3 +1,3 @@
 module MyTodo
-  VERSION = "2.1.0"
+  VERSION = "2.6.0"
 end

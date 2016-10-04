@@ -28,11 +28,13 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'shoulda-matchers', '~> 3.1'
   spec.add_development_dependency 'byebug', '~> 9.0.5'
   spec.add_development_dependency 'yard', '~> 0.9.5'
+  spec.add_development_dependency 'simplecov', '~> 0.12.0'
   spec.add_dependency 'activerecord', '~> 5.0.0.1'
   spec.add_dependency 'activesupport', '~> 5.0.0.1'
   spec.add_dependency 'thor', '~> 0.19.1'
   spec.add_dependency 'standalone_migrations', '~> 5.0.0'
   spec.add_dependency 'sqlite3', '~> 1.3.11'
+  spec.add_dependency 'ransack', '~> 1.8.2'
 
   spec.metadata["yard.run"] = "yri"
   spec.post_install_message = "Don't forget to migrate the db. `my_todo rake db:migrate`"

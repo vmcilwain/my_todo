@@ -11,3 +11,4 @@
 /lib/db/todos_test.sqlite3
 /lib/db/todos_production.sqlite3
 /.byebug_history
+/coverage
