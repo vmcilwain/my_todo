@@ -8,11 +8,11 @@ require 'active_record'
 require 'active_model'
 require 'yaml'
 require_relative 'ar_base'
-require_relative 'item'
-require_relative 'stub'
-require_relative 'tag'
-require_relative 'note'
-require_relative 'list'
+require_relative 'models/item'
+require_relative 'models/stub'
+require_relative 'models/tag'
+require_relative 'models/note'
+require_relative 'models/list'
 
 module MyTodo
   # Todo tasks using thor gem
@@ -23,18 +23,22 @@ module MyTodo
     # Private methods/tasks
     no_commands do
       def output(item)
-        puts ERB.new(File.read(File.expand_path("../../lib/my_todo/templates/output.erb", __FILE__))).result(binding)
+        say ERB.new(File.read(File.expand_path("../../lib/my_todo/templates/output.erb", __FILE__))).result(binding)
+      end
+
+      def item
+        @item ||= Item.where(id: options[:id]).first
       end
     end
 
-    desc 'list([REQ])', 'list todos. Default: unfinished, [all], [finished], [unfinished]'
-    def list(req=nil)
-      items = case
-      when req == 'all'
+    desc 'list([STATUS])', 'list todos. Default: undone, [all], [done], [undon]'
+    def list(status=nil)
+      items = case status
+      when 'all'
         Item.all
-      when req == 'finished'
+      when 'done'
         Item.where(done: true)
-      when req == 'unfinished'
+      when 'undone'
         Item.where(done: false)
       else
         Item.where(done: false)
@@ -47,14 +51,10 @@ module MyTodo
     desc "create --body='some text' [--done=true] [--tags='tag1 tag2']", 'create a todo'
     option :body
     option :done, default: false
-    option :status, default: 'in_progress'
     option :tags, default: 'default'
     option :created_at, default: DateTime.now
     def create
       begin
-        item_statuses = ::Item::STATUSES
-        item_statuses.each_with_index{|status, index| say "#{index}: #{status}"}
-        answer = ask("Chose a status by number").to_i
         item = Item.create!(options.except(:tags))
         options[:tags].split(' ').each{|tag| item.tags.create(name: tag) }
         say 'ToDo CREATED!'
@@ -71,7 +71,6 @@ module MyTodo
     option :updated_at, default: DateTime.now
     def update
       begin
-        item = Item.find(options[:id])
         item.update!(options)
         say 'ToDo UPDATED!'
         output item
@@ -96,7 +95,7 @@ module MyTodo
     def search(req)
       items = Item.where('id = ? or body like ?', req, "%#{req}%")
       say "ToDos FOUND: #{items.count}"
-      items.each {|i| output i}
+      items.each {|item| output item}
     end
 
     desc "tag --id=TODO_ID --tag=TAG_NAME", 'add a tag to an existing todo'
@@ -104,7 +103,6 @@ module MyTodo
     option :tag
     def tag
       begin
-        item = Item.where(id: options[:id]).first
         item.tags.create!(name: options[:tag])
       rescue Exception => e
         say e.message
@@ -116,7 +114,6 @@ module MyTodo
     option :tag
     def rm_tag
       begin
-        item = Item.where(id: options[:id]).first
         item.tags.where(name: options[:tag]).first.destroy!
         output item.reload
       rescue Exception => e
@@ -129,7 +126,6 @@ module MyTodo
     option :body
     def note
       begin
-        item = Item.where(id: options[:id]).first
         item.notes.create(body: options[:body])
         output item.reload
       rescue Exception => e
@@ -142,7 +138,6 @@ module MyTodo
     option :noteid
     def rm_note
       begin
-        item = Item.where(id: options[:id]).first
         item.notes.where(id: options[:noteid]).first.destroy!
         output item.reload
       rescue Exception => e
