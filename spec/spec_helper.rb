@@ -5,6 +5,8 @@ require 'factory_girl_rails'
 require 'shoulda-matchers'
 require 'byebug'
 require 'my_todo'
+require 'simplecov'
+SimpleCov.start
 
 DatabaseCleaner.strategy = :truncation
 

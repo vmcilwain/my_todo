@@ -1,4 +1,4 @@
-# @author Lovell McIlwain#
+# @author Lovell McIlwain
 # Handles running the todo application
 require File.expand_path('../../lib/my_todo/version', __FILE__)
 require 'thor'
@@ -7,6 +7,7 @@ require 'sqlite3'
 require 'active_record'
 require 'active_model'
 require 'yaml'
+require 'ransack'
 require_relative 'ar_base'
 require_relative 'item'
 require_relative 'stub'
@@ -19,22 +20,24 @@ module MyTodo
     # Add additional thor tasks
     include Thor::Actions
 
-    # Private methods/tasks
+    # Private methods
     no_commands do
       def output(item)
-        puts ERB.new(File.read(File.expand_path("../../lib/my_todo/templates/output.erb", __FILE__))).result(binding)
+        say ERB.new(File.read(File.expand_path("../../lib/my_todo/templates/output.erb", __FILE__))).result(binding)
+      end
+
+      def item
+        @item ||= Item.where(id: options[:id]).first
       end
     end
 
-    desc 'list([REQ])', 'list todos. Default: unfinished, [all], [finished], [unfinished]'
-    def list(req=nil)
-      items = case
-      when req == 'all'
+    desc 'list([STATUS])', 'list todos. Default: undone, [all], [done], [undone]'
+    def list(status=nil)
+      items = case status
+      when 'all'
         Item.all
-      when req == 'finished'
+      when 'done'
         Item.where(done: true)
-      when req == 'unfinished'
-        Item.where(done: false)
       else
         Item.where(done: false)
       end
@@ -66,7 +69,6 @@ module MyTodo
     option :updated_at, default: DateTime.now
     def update
       begin
-        item = Item.find(options[:id])
         item.update!(options)
         say 'ToDo UPDATED!'
         output item
@@ -87,11 +89,11 @@ module MyTodo
       end
     end
 
-    desc 'search(ID || BODY)', 'search for todo'
-    def search(req)
-      items = Item.where('id = ? or body like ?', req, "%#{req}%")
+    desc 'search(TEXT)', 'search for todo by item body, tag name or note body'
+    def search(text)
+      items = Item.ransack(body_or_tags_name_or_notes_body_cont: text).result
       say "ToDos FOUND: #{items.count}"
-      items.each {|i| output i}
+      items.each {|item| output item}
     end
 
     desc "tag --id=TODO_ID --tag=TAG_NAME", 'add a tag to an existing todo'
@@ -99,7 +101,6 @@ module MyTodo
     option :tag
     def tag
       begin
-        item = Item.where(id: options[:id]).first
         item.tags.create!(name: options[:tag])
       rescue Exception => e
         say e.message
@@ -111,7 +112,6 @@ module MyTodo
     option :tag
     def rm_tag
       begin
-        item = Item.where(id: options[:id]).first
         item.tags.where(name: options[:tag]).first.destroy!
         output item.reload
       rescue Exception => e
@@ -124,7 +124,6 @@ module MyTodo
     option :body
     def note
       begin
-        item = Item.where(id: options[:id]).first
         item.notes.create(body: options[:body])
         output item.reload
       rescue Exception => e
@@ -137,7 +136,6 @@ module MyTodo
     option :noteid
     def rm_note
       begin
-        item = Item.where(id: options[:id]).first
         item.notes.where(id: options[:noteid]).first.destroy!
         output item.reload
       rescue Exception => e
