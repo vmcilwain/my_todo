@@ -8,11 +8,10 @@ require 'active_record'
 require 'active_model'
 require 'yaml'
 require_relative 'ar_base'
-require_relative 'models/item'
-require_relative 'models/stub'
-require_relative 'models/tag'
-require_relative 'models/note'
-require_relative 'models/list'
+require_relative 'my_todo/models/item'
+require_relative 'my_todo/models/stub'
+require_relative 'my_todo/models/tag'
+require_relative 'my_todo/models/note'
 
 module MyTodo
   # Todo tasks using thor gem
@@ -20,7 +19,7 @@ module MyTodo
     # Add additional thor tasks
     include Thor::Actions
 
-    # Private methods/tasks
+    # Private methods
     no_commands do
       def output(item)
         say ERB.new(File.read(File.expand_path("../../lib/my_todo/templates/output.erb", __FILE__))).result(binding)
@@ -31,15 +30,13 @@ module MyTodo
       end
     end
 
-    desc 'list([STATUS])', 'list todos. Default: undone, [all], [done], [undon]'
+    desc 'list([STATUS])', 'list todos. Default: undone, [all], [done], [undone]'
     def list(status=nil)
       items = case status
       when 'all'
         Item.all
       when 'done'
         Item.where(done: true)
-      when 'undone'
-        Item.where(done: false)
       else
         Item.where(done: false)
       end

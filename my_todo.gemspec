@@ -28,6 +28,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'shoulda-matchers', '~> 3.1'
   spec.add_development_dependency 'byebug', '~> 9.0.5'
   spec.add_development_dependency 'yard', '~> 0.9.5'
+  spec.add_development_dependency 'simplecov', '~> 0.12.0'
   spec.add_dependency 'activerecord', '~> 5.0.0.1'
   spec.add_dependency 'activesupport', '~> 5.0.0.1'
   spec.add_dependency 'thor', '~> 0.19.1'
