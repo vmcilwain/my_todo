@@ -21,7 +21,7 @@ describe MyTodo do
       end
 
       it 'finds todo items by associated notes content' do
-        expect{MyTodo::Todo.start( %w[search note1])}.to output("ToDos FOUND: 1\n\nID: 3 | Tags:  | Complete: \nalways\n\nNotes:\n\n1: note1\n\n\n").to_stdout
+        expect{MyTodo::Todo.start( %w[search note1])}.to output("ToDos FOUND: 1\n\nID: 3 | Tags:  | Complete: \nalways\nNotes:\n1: note1\n\n\n").to_stdout
       end
     end
 
