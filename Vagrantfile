@@ -67,5 +67,7 @@ Vagrant.configure("2") do |config|
   config.vm.provision "shell", inline: <<-SHELL
     apt-get update
   SHELL
-  config.vm.provision :shell, path: 'vagrant-scripts/install-rvm-ruby.sh',  privileged: false
+  config.vm.provision :shell, path: "vagrant-scripts/install-rvm.sh", args: "stable", privileged: false
+  # config.vm.provision :shell, path: "install-ruby.sh", args: "1.9.3", privileged: false
+  config.vm.provision :shell, path: "vagrant-scripts/install-ruby.sh", args: "2.3.0 rails haml", privileged: false
 end
