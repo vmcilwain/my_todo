@@ -12,7 +12,7 @@ Vagrant.configure("2") do |config|
 
   # Every Vagrant development environment requires a box. You can search for
   # boxes at https://atlas.hashicorp.com/search.
-  config.vm.box = "ubuntu/xenial64"
+  config.vm.box = "ubuntu/wily64"
 
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
@@ -66,10 +66,8 @@ Vagrant.configure("2") do |config|
   # documentation for more information about their specific syntax and use.
   config.vm.provision "shell", inline: <<-SHELL
     apt-get update
-    sudo gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
-    curl -sSL https://get.rvm.io | bash -s stable --ruby
-    source /usr/local/rvm/scripts/rvm
-    rvm rvmrc warning ignore allGemfiles
-    gem install bundler
   SHELL
+  config.vm.provision :shell, path: "vagrant-scripts/install-rvm.sh", args: "stable", privileged: false
+  # config.vm.provision :shell, path: "install-ruby.sh", args: "1.9.3", privileged: false
+  config.vm.provision :shell, path: "vagrant-scripts/install-ruby.sh", args: "2.3.0 rails haml", privileged: false
 end
