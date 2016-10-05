@@ -1,3 +1,6 @@
+# code climent must be loaded and started before RAILS_ENV is declared
+require "codeclimate-test-reporter"
+CodeClimate::TestReporter.start
 ENV["RAILS_ENV"] = 'test'
 $LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
 require 'database_cleaner'
@@ -6,7 +9,9 @@ require 'shoulda-matchers'
 require 'byebug'
 require 'my_todo'
 require 'simplecov'
+
 SimpleCov.start
+
 
 DatabaseCleaner.strategy = :truncation
 

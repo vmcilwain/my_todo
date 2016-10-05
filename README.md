@@ -1,4 +1,9 @@
 # My Todo
+[![Code Climate](https://codeclimate.com/github/vmcilwain/my_todo/badges/gpa.svg)](https://codeclimate.com/github/vmcilwain/my_todo)
+
+[![Test Coverage](https://codeclimate.com/github/vmcilwain/my_todo/badges/coverage.svg)](https://codeclimate.com/github/vmcilwain/my_todo/coverage)
+
+[![Issue Count](https://codeclimate.com/github/vmcilwain/my_todo/badges/issue_count.svg)](https://codeclimate.com/github/vmcilwain/my_todo)
 
 ## Summary
 This is yet another simple todo application. This was built because I found myself having to create quick reminders when things came up but needing to switch windows from the terminal to the todo application via the GUI. This application is the result of that one annoyance :). It is still a work in progress but I hope you find it useful.

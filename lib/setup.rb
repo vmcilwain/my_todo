@@ -12,7 +12,7 @@ class Setup < Thor
 
   desc 'db_config', 'Generate data file structure and configuration files'
   def db_config
-    unless File.exists?("#{HOME_DIR}/.my_todo/data")
+    unless File.exist?("#{HOME_DIR}/.my_todo/data")
       `mkdir -p #{HOME_DIR}/.my_todo/data`
       say "Created .my_todo in #{HOME_DIR}"
     end
