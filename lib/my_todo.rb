@@ -1,6 +1,6 @@
 # @author Lovell McIlwain
 # Handles running the todo application
-require File.expand_path('../../lib/my_todo/version', __FILE__)
+require "#{__dir__}/my_todo/version"
 require 'thor'
 require 'erb'
 require 'sqlite3'
@@ -8,11 +8,11 @@ require 'active_record'
 require 'active_model'
 require 'yaml'
 require 'ransack'
-require_relative 'ar_base'
-require_relative 'item'
-require_relative 'stub'
-require_relative 'tag'
-require_relative 'note'
+require_relative 'my_todo/ar_base'
+require_relative 'my_todo/models/item'
+require_relative 'my_todo/models/stub'
+require_relative 'my_todo/models/tag'
+require_relative 'my_todo/models/note'
 
 module MyTodo
   # Todo tasks using thor gem
@@ -23,7 +23,7 @@ module MyTodo
     # Private methods
     no_commands do
       def output(item)
-        say ERB.new(File.read(File.expand_path("../../lib/my_todo/templates/output.erb", __FILE__)), nil, '-').result(binding)
+        say ERB.new(File.read("#{__dir__}/my_todo/templates/output.erb"), nil, '-').result(binding)
       end
 
       def item
