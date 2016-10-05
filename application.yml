@@ -1,0 +1,5 @@
+templates_path: ../../lib/my_todo/templates/output.erb
+development:
+  database: ../db/todos_test.sqlite3
+test:
+  database: ../db/todos_development.sqlite3

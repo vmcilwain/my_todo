@@ -2,11 +2,14 @@
 #
 # @author Lovell McIlwain
 #
+require 'yaml'
 # Sets running environment for application (standalone_migration/ActiveRecord).
 # @note defaults to production unless rails environment is manually specified
 # @note example: RAILS_ENV=development todo list
 ENV['RAILS_ENV'] = ENV['RAILS_ENV'].nil? || ENV['RAILS_ENV'].empty? ? 'production' : ENV['RAILS_ENV']
 
+CONFIG = YAML.load(File.read("#{__dir__}/../application.yml"))
+CONFIG.merge! CONFIG.fetch(ENV['RAILS_ENV'], {})
 # Set gem directory path
 gem_dir = "#{__dir__}/.."
 

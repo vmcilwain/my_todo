@@ -23,7 +23,7 @@ module MyTodo
     # Private methods
     no_commands do
       def output(item)
-        say ERB.new(File.read(File.expand_path("../../lib/my_todo/templates/output.erb", __FILE__)), nil, '-').result(binding)
+        say ERB.new(File.read(File.expand_path(CONFIG['templates_path'], __FILE__)), nil, '-').result(binding)
       end
 
       def item
@@ -146,7 +146,7 @@ module MyTodo
     desc 'export(PATH)', 'export todos to an ASCII file'
     def export(path)
       home_path = `echo $HOME`.chomp
-      `echo '.dump' | sqlite3 #{home_path}/.my_todos/data/todos_#{ENV['RAILS_ENV']}.sqlite3 | gzip -c > todos_#{ENV['RAILS_ENV']}.dump.gz`
+      # `echo '.dump' | sqlite3 #{home_path}/.my_todos/data/todos_#{ENV['RAILS_ENV']}.sqlite3 | gzip -c > todos_#{ENV['RAILS_ENV']}.dump.gz`
     end
   end
 end
