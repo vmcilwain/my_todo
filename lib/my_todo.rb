@@ -84,7 +84,7 @@ module MyTodo
         output item
         item.destroy!
         say 'ToDo DESTROYED!'
-      rescue Exception => e
+      rescue StandardError => e
         say e.message
       end
     end
@@ -102,7 +102,7 @@ module MyTodo
     def tag
       begin
         item.tags.create!(name: options[:tag])
-      rescue Exception => e
+      rescue StandardError => e
         say e.message
       end
     end
@@ -114,7 +114,7 @@ module MyTodo
       begin
         item.tags.where(name: options[:tag]).first.destroy!
         output item.reload
-      rescue Exception => e
+      rescue StandardError => e
         say e.message
       end
     end
@@ -126,7 +126,7 @@ module MyTodo
       begin
         item.notes.create(body: options[:body])
         output item.reload
-      rescue Exception => e
+      rescue StandardError => e
         say e.message
       end
     end
@@ -138,7 +138,7 @@ module MyTodo
       begin
         item.notes.where(id: options[:noteid]).first.destroy!
         output item.reload
-      rescue Exception => e
+      rescue StandardError => e
         say e.message
       end
     end
