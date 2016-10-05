@@ -6,7 +6,9 @@ require 'shoulda-matchers'
 require 'byebug'
 require 'my_todo'
 require 'simplecov'
+require "codeclimate-test-reporter"
 SimpleCov.start
+CodeClimate::TestReporter.start
 
 DatabaseCleaner.strategy = :truncation
 
