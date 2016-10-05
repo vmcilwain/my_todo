@@ -53,7 +53,9 @@ module MyTodo
     option :created_at, default: DateTime.now
     def create
       begin
-        item = Item.create!(options.except(:tags))
+        Item::DETAILED_STATUSES.each_with_index {|status, index| puts "#{index}: #{status}"}
+        idx = ask("Chose a status for item")
+        item = Item.create!(options.merge({detailed_status: Item::DETAILED_STATUSES[idx.to_i]}).except(:tags))
         options[:tags].split(' ').each{|tag| item.tags.create(name: tag) }
         say 'ToDo CREATED!'
         output item
