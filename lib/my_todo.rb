@@ -86,7 +86,6 @@ module MyTodo
     option :done
     option :updated_at, default: DateTime.now
     def update
-      require 'byebug'
       begin
         idx = ask_status.to_i
         new_status = detailed_statuses[idx]
