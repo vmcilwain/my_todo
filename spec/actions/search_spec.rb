@@ -12,16 +12,22 @@ describe MyTodo do
       end
 
 
-      it 'finds todo item by body' do
+      it 'returns todo item by body' do
         expect{MyTodo::Todo.start( %w[search nfl])}.to output("ToDos FOUND: 1\n\nID: 1 | Tags: tag1 | Complete: \nnfl\n\n").to_stdout
       end
 
-      it 'finds todo items by associated tag' do
+      it 'returns todo items by associated tag' do
         expect{MyTodo::Todo.start( %w[search tag1])}.to output("ToDos FOUND: 1\n\nID: 1 | Tags: tag1 | Complete: \nnfl\n\n").to_stdout
       end
 
-      it 'finds todo items by associated notes content' do
+      it 'returns todo items by associated notes content' do
         expect{MyTodo::Todo.start( %w[search note1])}.to output("ToDos FOUND: 1\n\nID: 3 | Tags:  | Complete: \nalways\nNotes:\n1: note1\n\n\n").to_stdout
+      end
+
+      it 'returns only one todo item if criteria matches associated records' do
+        @todo2.notes.create(body: 'who rocks')
+        @todo2.tags.create(name: 'rocky')
+        expect{MyTodo::Todo.start( %w[search rock])}.to output("ToDos FOUND: 1\n\nID: 2 | Tags: rocky | Complete: \nrocks\nNotes:\n2: who rocks\n\n\n").to_stdout
       end
     end
 
