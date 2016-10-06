@@ -1,10 +1,19 @@
 require 'spec_helper'
 
 describe MyTodo do
+  def shell
+    @shell ||= Thor::Shell::Basic.new
+  end
+
   describe 'create' do
     context 'successful creation' do
       describe 'creation without tags or setting done attribute' do
+        before do
+          # expect(Thor::LineEditor).to receive(:readline).with("Choose a status for item", :limited_to => Item::DETAILED_STATUSES).and_return("None")
+        end
+
         it 'creates a todo item' do
+          # expect(shell.ask('Choose a status for item', :limited_to => Item::DETAILED_STATUSES)).to eq("None")
           expect{MyTodo::Todo.start(%w(create --body=wierdness_of_text))}.to change{Item.count}.by(1)
         end
 

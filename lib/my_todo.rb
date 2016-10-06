@@ -29,6 +29,18 @@ module MyTodo
       def item
         @item ||= Item.where(id: options[:id]).first
       end
+
+      def detailed_statuses
+        @detailed_statuses ||= Item::DETAILED_STATUSES
+      end
+
+      def list_statuses
+        detailed_statuses.each_with_index {|status, index| say "#{index}: #{status}"}
+      end
+
+      def ask_status
+        ask "Choose a status for item", limited_to: detailed_statuses, default: 'In Progress'
+      end
     end
 
     desc 'list([STATUS])', 'list todos. Default: undone, [all], [done], [undone]'
@@ -53,9 +65,9 @@ module MyTodo
     option :created_at, default: DateTime.now
     def create
       begin
-        Item::DETAILED_STATUSES.each_with_index {|status, index| puts "#{index}: #{status}"}
-        idx = ask("Chose a status for item")
-        item = Item.create!(options.merge({detailed_status: Item::DETAILED_STATUSES[idx.to_i]}).except(:tags))
+        list_statuses
+        idx = ask_status
+        item = Item.create!(options.merge({detailed_status: detailed_statuses[idx.to_i]}).except(:tags))
         options[:tags].split(' ').each{|tag| item.tags.create(name: tag) }
         say 'ToDo CREATED!'
         output item
