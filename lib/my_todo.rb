@@ -118,6 +118,7 @@ module MyTodo
     def tag
       begin
         item.tags.create!(name: options[:tag])
+        output item.reload
       rescue Exception => e
         say e.message
       end
