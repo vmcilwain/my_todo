@@ -6,6 +6,7 @@
 # backwards compatibility). Please don't change it unless you know what
 # you're doing.
 Vagrant.configure("2") do |config|
+  config.vm.define :my_todo
   # The most common configuration options are documented and commented below.
   # For a complete reference, please see the online documentation at
   # https://docs.vagrantup.com.
@@ -67,7 +68,8 @@ Vagrant.configure("2") do |config|
   config.vm.provision "shell", inline: <<-SHELL
     apt-get update
   SHELL
+  # Pass in more than one args: using a space delimited list
   config.vm.provision :shell, path: "vagrant-scripts/install-rvm.sh", args: "stable", privileged: false
-  config.vm.provision :shell, path: "install-ruby.sh", args: "2.2.4", privileged: false
-  config.vm.provision :shell, path: "vagrant-scripts/install-ruby.sh", args: "2.3.0 rails haml", privileged: false
+  config.vm.provision :shell, path: "vagrant-scripts/install-ruby.sh", args: "2.2.2", privileged: false
+  config.vm.provision :shell, path: "vagrant-scripts/install-ruby.sh", args: "2.3.0", privileged: false
 end
