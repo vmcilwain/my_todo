@@ -1,6 +1,7 @@
 # @author Lovell McIlwain#
 # Handles business logic for todo item
 class Item < ActiveRecord::Base
+  DETAILED_STATUSES = ['None', 'In Progress', 'Complete', 'Punted', 'Waiting Feedback']
   # ActiveRecord association to stubs
   # @note Item.first.stubs
   has_many :stubs

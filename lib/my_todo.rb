@@ -29,6 +29,19 @@ module MyTodo
       def item
         @item ||= Item.where(id: options[:id]).first
       end
+
+      def detailed_statuses
+        @detailed_statuses ||= Item::DETAILED_STATUSES
+      end
+
+      def list_statuses
+        detailed_statuses.each_with_index {|status, index| say "#{index}: #{status}"}
+      end
+
+      def ask_status
+        list_statuses
+        @status = ask("Choose a status for item", default: 1)
+      end
     end
 
     desc 'list([STATUS])', 'list todos. Default: undone, [all], [done], [undone]'
@@ -53,7 +66,8 @@ module MyTodo
     option :created_at, default: DateTime.now
     def create
       begin
-        item = Item.create!(options.except(:tags))
+        ask_status
+        item = Item.create!(options.merge({detailed_status: detailed_statuses[@status.to_i]}).except(:tags))
         options[:tags].split(' ').each{|tag| item.tags.create(name: tag) }
         say 'ToDo CREATED!'
         output item
@@ -69,7 +83,9 @@ module MyTodo
     option :updated_at, default: DateTime.now
     def update
       begin
-        item.update!(options)
+        ask_status
+        new_status = detailed_statuses[@status.to_i]
+        item.detailed_status != new_status ? item.update!(options.merge({detailed_status: new_status})) : item.update!(options)
         say 'ToDo UPDATED!'
         output item
       rescue ActiveRecord::RecordInvalid => e
@@ -102,7 +118,8 @@ module MyTodo
     def tag
       begin
         item.tags.create!(name: options[:tag])
-      rescue StandardError => e
+        output item.reload
+      rescue Exception => e
         say e.message
       end
     end
