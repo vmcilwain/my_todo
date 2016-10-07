@@ -42,21 +42,35 @@ module MyTodo
         list_statuses
         @status = ask("Choose a status for item", default: 1)
       end
+
+      def all_items(status)
+        case status
+        when 'all'
+          Item.all
+        when 'done'
+          Item.where(done: true)
+        else
+          Item.where(done: false)
+        end
+      end
+
+      def create_item(options)
+        ask_status
+        @item = Item.create!(options.merge({detailed_status: detailed_statuses[@status.to_i]}).except(:tags))
+        options[:tags].split(' ').each{|tag| item.tags.create(name: tag) }
+      end
+
+      def update_item(options)
+        ask_status
+        new_status = detailed_statuses[@status.to_i]
+        item.detailed_status != new_status ? item.update!(options.merge({detailed_status: new_status})) : item.update!(options)
+      end
     end
 
     desc 'list([STATUS])', 'list todos. Default: undone, [all], [done], [undone]'
     def list(status=nil)
-      items = case status
-      when 'all'
-        Item.all
-      when 'done'
-        Item.where(done: true)
-      else
-        Item.where(done: false)
-      end
-
       say "ToDos FOUND: #{items.count}"
-      items.each {|item| output(item)}
+      all_items(status).each {|item| output(item)}
     end
 
     desc "create --body='some text' [--done=true] [--tags='tag1 tag2']", 'create a todo'
@@ -66,11 +80,9 @@ module MyTodo
     option :created_at, default: DateTime.now
     def create
       begin
-        ask_status
-        item = Item.create!(options.merge({detailed_status: detailed_statuses[@status.to_i]}).except(:tags))
-        options[:tags].split(' ').each{|tag| item.tags.create(name: tag) }
         say 'ToDo CREATED!'
-        output item
+        create_item(options)
+        output @item
       rescue ActiveRecord::RecordInvalid => e
         say e.message
       end
@@ -83,9 +95,7 @@ module MyTodo
     option :updated_at, default: DateTime.now
     def update
       begin
-        ask_status
-        new_status = detailed_statuses[@status.to_i]
-        item.detailed_status != new_status ? item.update!(options.merge({detailed_status: new_status})) : item.update!(options)
+        update_item(options)
         say 'ToDo UPDATED!'
         output item
       rescue ActiveRecord::RecordInvalid => e
@@ -107,7 +117,7 @@ module MyTodo
 
     desc 'search(TEXT)', 'search for todo by item body, tag name or note body'
     def search(text)
-      items = Item.ransack(body_or_tags_name_or_notes_body_cont: text).result
+      items = Item.ransack(body_or_detailed_status_tags_name_or_notes_body_cont: text).result
       say "ToDos FOUND: #{items.count}"
       items.each {|item| output item}
     end
@@ -119,7 +129,7 @@ module MyTodo
       begin
         item.tags.create!(name: options[:tag])
         output item.reload
-      rescue Exception => e
+      rescue StandardError => e
         say e.message
       end
     end
