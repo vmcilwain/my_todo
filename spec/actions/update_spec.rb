@@ -13,7 +13,7 @@ describe MyTodo do
 
     context 'successful update' do
       it 'displays the update' do
-        expect{MyTodo::Todo.start(%W[update --id=#{@todo.id} --body=hello])}.to output("0: None\n1: In Progress\n2: Complete\n3: Punted\n4: Waiting Feedback\nToDo UPDATED!\n\nID: 1 | Created On: 2016-10-06 | Tags:  | Status: None | Complete: \nhello\n\n").to_stdout
+        expect{MyTodo::Todo.start(%W[update --id=#{@todo.id} --body=hello])}.to output("0: None\n1: In Progress\n2: Complete\n3: Punted\n4: Waiting Feedback\nToDo UPDATED!\n\nID: 1 | Created On: 2016-10-07 | Tags:  | Status: None | Complete: \nhello\n\n").to_stdout
       end
     end
 

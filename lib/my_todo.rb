@@ -40,11 +40,7 @@ module MyTodo
 
       def ask_status
         list_statuses
-        ask "Choose a status for item", default: 1
-      end
-
-      def update_with_new_status(options, idx)
-        item.update!(options.merge(detailed_status: detailed_statuses[idx]))
+        @status = ask("Choose a status for item", default: 1)
       end
     end
 
@@ -70,8 +66,8 @@ module MyTodo
     option :created_at, default: DateTime.now
     def create
       begin
-        idx = ask_status.to_i
-        item = Item.create!(options.merge({detailed_status: detailed_statuses[idx]}).except(:tags))
+        ask_status
+        item = Item.create!(options.merge({detailed_status: detailed_statuses[@status.to_i]}).except(:tags))
         options[:tags].split(' ').each{|tag| item.tags.create(name: tag) }
         say 'ToDo CREATED!'
         output item
@@ -87,8 +83,8 @@ module MyTodo
     option :updated_at, default: DateTime.now
     def update
       begin
-        idx = ask_status.to_i
-        new_status = detailed_statuses[idx]
+        ask_status
+        new_status = detailed_statuses[@status.to_i]
         item.detailed_status != new_status ? item.update!(options.merge({detailed_status: new_status})) : item.update!(options)
         say 'ToDo UPDATED!'
         output item
