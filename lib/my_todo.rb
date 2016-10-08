@@ -117,8 +117,9 @@ module MyTodo
 
     desc 'search(TEXT)', 'search for todo by item body, tag name or note body'
     def search(text)
-      items = Item.ransack(body_or_detailed_status_tags_name_or_notes_body_cont: text).result
+      items = Item.ransack(body_or_detailed_status_or_tags_name_or_notes_body_cont: text).result
       say "ToDos FOUND: #{items.count}"
+      say "Search based on ransack search: body_or_detailed_status_or_tags_name_or_notes_body_cont"
       items.each {|item| output item}
     end
 
