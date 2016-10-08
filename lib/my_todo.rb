@@ -69,8 +69,9 @@ module MyTodo
 
     desc 'list([STATUS])', 'list todos. Default: undone, [all], [done], [undone]'
     def list(status=nil)
+      items = all_items(status)
       say "ToDos FOUND: #{items.count}"
-      all_items(status).each {|item| output(item)}
+      items.each {|item| output(item)}
     end
 
     desc "create --body='some text' [--done=true] [--tags='tag1 tag2']", 'create a todo'
