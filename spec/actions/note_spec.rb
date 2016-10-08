@@ -14,7 +14,7 @@ describe MyTodo do
       end
 
       it 'displays item with notes' do
-        expect{MyTodo::Todo.start(%W[note --id=#{@todo.id} --body=note_text])}.to output("\nID: 1 | Created On: 2016-10-07 | Tags:  | Status:  | Complete: \nSome Body\nNotes:\nID: 1 | Created On: 2016-10-07\nnote_text\n\n\n").to_stdout
+        expect{MyTodo::Todo.start(%W[note --id=#{@todo.id} --body=note_text])}.to output("\nID: 1 | Created On: 2016-10-08 | Tags:  | Status:  | Complete: \nSome Body\nNotes:\nID: 1 | Created On: 2016-10-08\nnote_text\n\n\n").to_stdout
       end
     end
 

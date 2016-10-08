@@ -33,7 +33,7 @@ describe MyTodo do
         end
 
         it 'displays the created todo item' do
-          expect{MyTodo::Todo.start(%w(create --body=wierdness_of_text))}.to output("0: None\n1: In Progress\n2: Complete\n3: Punted\n4: Waiting Feedback\nToDo CREATED!\n\nID: 1 | Created On: 2016-10-07 | Tags: default | Status: In Progress | Complete: false\nwierdness_of_text\n\n").to_stdout
+          expect{MyTodo::Todo.start(%w(create --body=wierdness_of_text))}.to output("ToDo CREATED!\n0: None\n1: In Progress\n2: Complete\n3: Punted\n4: Waiting Feedback\n\nID: 1 | Created On: 2016-10-08 | Tags: default | Status: In Progress | Complete: false\nwierdness_of_text\n\n").to_stdout
         end
       end
 
@@ -43,7 +43,7 @@ describe MyTodo do
         end
 
         it 'displays the created todo item with tag' do
-          expect{MyTodo::Todo.start(%w(create --body=wierdness_of_text --tags=tag1))}.to output("0: None\n1: In Progress\n2: Complete\n3: Punted\n4: Waiting Feedback\nToDo CREATED!\n\nID: 1 | Created On: 2016-10-07 | Tags: tag1 | Status: In Progress | Complete: false\nwierdness_of_text\n\n").to_stdout
+          expect{MyTodo::Todo.start(%w(create --body=wierdness_of_text --tags=tag1))}.to output("ToDo CREATED!\n0: None\n1: In Progress\n2: Complete\n3: Punted\n4: Waiting Feedback\n\nID: 1 | Created On: 2016-10-08 | Tags: tag1 | Status: In Progress | Complete: false\nwierdness_of_text\n\n").to_stdout
         end
       end
 
@@ -56,14 +56,14 @@ describe MyTodo do
         end
 
         it 'displays the created to item with complete set to true' do
-          expect{MyTodo::Todo.start(%w[create --body=wierdness_of_text --done=true])}.to output("0: None\n1: In Progress\n2: Complete\n3: Punted\n4: Waiting Feedback\nToDo CREATED!\n\nID: 1 | Created On: 2016-10-07 | Tags: default | Status: In Progress | Complete: true\nwierdness_of_text\n\n").to_stdout
+          expect{MyTodo::Todo.start(%w[create --body=wierdness_of_text --done=true])}.to output("ToDo CREATED!\n0: None\n1: In Progress\n2: Complete\n3: Punted\n4: Waiting Feedback\n\nID: 1 | Created On: 2016-10-08 | Tags: default | Status: In Progress | Complete: true\nwierdness_of_text\n\n").to_stdout
         end
       end
     end
 
     context 'unsuccessful creation' do
       it 'returns error message when body is missing' do
-        expect{MyTodo::Todo.start(%w(create))}.to output("0: None\n1: In Progress\n2: Complete\n3: Punted\n4: Waiting Feedback\nValidation failed: Body can't be blank\n").to_stdout
+        expect{MyTodo::Todo.start(%w(create))}.to output("ToDo CREATED!\n0: None\n1: In Progress\n2: Complete\n3: Punted\n4: Waiting Feedback\nValidation failed: Body can't be blank\n").to_stdout
       end
     end
   end
