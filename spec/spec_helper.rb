@@ -1,6 +1,7 @@
 # code climent must be loaded and started before RAILS_ENV is declared
 require "codeclimate-test-reporter"
 CodeClimate::TestReporter.start
+ENV['CODECLIMATE_REPO_TOKEN'] = ENV['MYTOD_CC']
 ENV["RAILS_ENV"] = 'test'
 $LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
 require 'database_cleaner'
