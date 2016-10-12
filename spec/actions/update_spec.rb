@@ -1,10 +1,6 @@
 require 'spec_helper'
 
 describe MyTodo do
-  def shell
-    @shell ||= Thor::Shell::Basic.new
-  end
-
   describe 'update' do
     before do
       expect(Thor::LineEditor).to receive(:readline).with("Choose a status for item (1) ", {:default=>1}).and_return("In Progress")
