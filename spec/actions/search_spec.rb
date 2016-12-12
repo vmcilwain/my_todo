@@ -23,6 +23,10 @@ describe MyTodo do
         @todo2.update!(detailed_status: 'None')
         expect{MyTodo::Todo.start( %w[search None])}.to output("ToDos FOUND: 1\nSearch based on ransack search: body_or_detailed_status_or_tags_name_or_notes_body_cont\n\nID: 2 | Created On: #{Date.today} | Tags:  | Status: None | Complete: \nrocks\n").to_stdout
       end
+
+      it 'finds todo items by notes' do
+        expect{MyTodo::Todo.start( %w[search note1])}.to output("ToDos FOUND: 1\nSearch based on ransack search: body_or_detailed_status_or_tags_name_or_notes_body_cont\n\nID: 3 | Created On: 2016-12-12 | Tags:  | Status:  | Complete: \nalways\n  [1] note1\n").to_stdout
+      end
     end
 
     context 'unsuccessful search' do

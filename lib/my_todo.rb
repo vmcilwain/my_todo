@@ -30,6 +30,10 @@ module MyTodo
         say ERB.new(File.read("#{__dir__}/my_todo/templates/notes.erb"), nil, '-').result(binding)
       end
 
+      def print_search_results(item)
+        say ERB.new(File.read("#{__dir__}/my_todo/templates/results.erb"), nil, '-').result(binding)
+      end
+
       def item
         @item ||= Item.where(id: options[:id]).first
       end
@@ -129,7 +133,7 @@ module MyTodo
       items = Item.ransack(body_or_detailed_status_or_tags_name_or_notes_body_cont: text).result
       say "ToDos FOUND: #{items.count}"
       say "Search based on ransack search: body_or_detailed_status_or_tags_name_or_notes_body_cont"
-      items.each {|item| print_list item}
+      items.each {|item| print_search_results item}
     end
 
     desc "tag --id=TODO_ID --tag=TAG_NAME", 'add a tag to an existing todo'
