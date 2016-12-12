@@ -22,7 +22,7 @@ module MyTodo
 
     # Private methods
     no_commands do
-      def output(item)
+      def print_list(item)
         say ERB.new(File.read("#{__dir__}/my_todo/templates/list.erb"), nil, '-').result(binding)
       end
 
@@ -71,7 +71,7 @@ module MyTodo
     def list(status=nil)
       items = all_items(status)
       say "ToDos FOUND: #{items.count}"
-      items.each {|item| output(item)}
+      items.each {|item| print_list(item)}
     end
 
     desc "create --body='some text' [--done=true] [--tags='tag1 tag2']", 'create a todo'
@@ -83,7 +83,7 @@ module MyTodo
       begin
         say 'ToDo CREATED!'
         create_item(options)
-        output @item
+        print_list @item
       rescue ActiveRecord::RecordInvalid => e
         say e.message
       end
@@ -98,7 +98,7 @@ module MyTodo
       begin
         update_item(options)
         say 'ToDo UPDATED!'
-        output item
+        print_list item
       rescue ActiveRecord::RecordInvalid => e
         say e.message
       end
@@ -108,7 +108,7 @@ module MyTodo
     def delete(id)
       begin
         item = Item.find_by_id(id)
-        output item
+        print_list item
         item.destroy!
         say 'ToDo DESTROYED!'
       rescue StandardError => e
@@ -121,7 +121,7 @@ module MyTodo
       items = Item.ransack(body_or_detailed_status_or_tags_name_or_notes_body_cont: text).result
       say "ToDos FOUND: #{items.count}"
       say "Search based on ransack search: body_or_detailed_status_or_tags_name_or_notes_body_cont"
-      items.each {|item| output item}
+      items.each {|item| print_list item}
     end
 
     desc "tag --id=TODO_ID --tag=TAG_NAME", 'add a tag to an existing todo'
@@ -130,7 +130,7 @@ module MyTodo
     def tag
       begin
         item.tags.create!(name: options[:tag])
-        output item.reload
+        print_list item.reload
       rescue StandardError => e
         say e.message
       end
@@ -142,7 +142,7 @@ module MyTodo
     def rm_tag
       begin
         item.tags.where(name: options[:tag]).first.destroy!
-        output item.reload
+        print_list item.reload
       rescue StandardError => e
         say e.message
       end
@@ -154,7 +154,7 @@ module MyTodo
     def note
       begin
         item.notes.create(body: options[:body])
-        output item.reload
+        print_list item.reload
       rescue StandardError => e
         say e.message
       end
@@ -166,7 +166,7 @@ module MyTodo
     def rm_note
       begin
         item.notes.where(id: options[:noteid]).first.destroy!
-        output item.reload
+        print_list item.reload
       rescue StandardError => e
         say e.message
       end
