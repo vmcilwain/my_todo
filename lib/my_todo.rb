@@ -22,7 +22,7 @@ module MyTodo
 
     # Private methods
     no_commands do
-      def print_list(item)
+      def print_list
         say ERB.new(File.read("#{__dir__}/my_todo/templates/list.erb"), nil, '-').result(binding)
       end
 
@@ -30,8 +30,12 @@ module MyTodo
         say ERB.new(File.read("#{__dir__}/my_todo/templates/notes.erb"), nil, '-').result(binding)
       end
 
-      def print_search_results(item)
+      def print_search_results
         say ERB.new(File.read("#{__dir__}/my_todo/templates/results.erb"), nil, '-').result(binding)
+      end
+
+      def print_item
+        say ERB.new(File.read("#{__dir__}/my_todo/templates/item.erb"), nil, '-').result(binding)
       end
 
       def item
@@ -55,15 +59,15 @@ module MyTodo
         @item_notes ||= item.notes
       end
 
-      def all_items(status)
-        case status
-        when 'all'
-          Item.all
-        when 'done'
-          Item.where(done: true)
-        else
-          Item.where(done: false)
-        end
+      def all_items
+        @items = case options[:status]
+                when 'all'
+                  Item.all
+                when 'done'
+                  Item.where(done: true)
+                else
+                  Item.where(done: false)
+                end
       end
 
       def create_item(options)
@@ -80,10 +84,10 @@ module MyTodo
     end
 
     desc 'list([STATUS])', 'list todos. Default: undone, [all], [done], [undone]'
-    def list(status=nil)
-      items = all_items(status)
-      say "ToDos FOUND: #{items.count}"
-      items.each {|item| print_list(item)}
+    option :status
+    def list
+      say "ToDos FOUND: #{all_items.count}"
+      print_list
     end
 
     desc "create --body='some text' [--done=true] [--tags='tag1 tag2']", 'create a todo'
@@ -95,7 +99,7 @@ module MyTodo
       begin
         say 'ToDo CREATED!'
         create_item(options)
-        print_list @item
+        print_item
       rescue ActiveRecord::RecordInvalid => e
         say e.message
       end
@@ -128,12 +132,13 @@ module MyTodo
       end
     end
 
-    desc 'search(TEXT)', 'search for todo by item body, tag name or note body'
-    def search(text)
-      items = Item.ransack(body_or_detailed_status_or_tags_name_or_notes_body_cont: text).result
-      say "ToDos FOUND: #{items.count}"
+    desc 'search', 'search for todo by item body, tag name or note body'
+    option :text, required: true
+    def search
+      @items = Item.ransack(body_or_detailed_status_or_tags_name_or_notes_body_cont: options[:text]).result
+      say "ToDos FOUND: #{@items.count}"
       say "Search based on ransack search: body_or_detailed_status_or_tags_name_or_notes_body_cont"
-      items.each {|item| print_search_results item}
+      print_search_results
     end
 
     desc "tag --id=TODO_ID --tag=TAG_NAME", 'add a tag to an existing todo'
