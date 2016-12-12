@@ -1,0 +1,9 @@
+<% if item_notes.any? -%>
+Notes for <%= item.id %>: <%= item.body %>
+<% item_notes.each do |note| -%>
+ID: <%= note.id %> | Created On: <%= note.created_at.strftime("%Y-%m-%d")%>
+<%= note.body %>
+<% end %>
+<% else -%>
+No Notes for item <%= item.id %>
+<% end %>

@@ -92,7 +92,7 @@ NOTE: In development, all commands must be run with the RAILS_ENV included. This
 
 ## Testing
 
-Run `RAILS_ENV=test bin/my_todo rake db:migrate` to create the test db. Then run `rake` to run the RSpec tests.
+Run `RAILS_ENV=test bin/my_todo rake db:migrate` to create the test db. Then run `RAILS_ENV=test bundle exec rake` to run the RSpec tests.
 
 ## Releasing
 To release a new version,
