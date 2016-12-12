@@ -114,7 +114,7 @@ module MyTodo
       begin
         update_item(options)
         say 'ToDo UPDATED!'
-        print_list item
+        print_item
       rescue ActiveRecord::RecordInvalid => e
         say e.message
       end
