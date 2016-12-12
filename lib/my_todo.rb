@@ -162,7 +162,7 @@ module MyTodo
     def add_note
       begin
         item.notes.create(body: options[:body])
-        print_notes #item.notes
+        print_notes
       rescue StandardError => e
         say e.message
       end
@@ -182,9 +182,8 @@ module MyTodo
 
     desc 'notes(TODO_ID)', 'Display notes for a given todo'
     option :id
-    def notes(id)
+    def notes
       begin
-        item
         print_notes
       rescue StandardError => e
         say e.message
