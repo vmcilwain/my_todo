@@ -120,11 +120,10 @@ module MyTodo
       end
     end
 
-    desc 'delete(TODO_ID)', 'destroy a todo'
-    def delete(id)
+    desc 'delete', 'destroy a todo'
+    option :id, required: true
+    def delete
       begin
-        item = Item.find_by_id(id)
-        print_list item
         item.destroy!
         say 'ToDo DESTROYED!'
       rescue StandardError => e
