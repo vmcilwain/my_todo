@@ -12,20 +12,20 @@ describe MyTodo do
       end
 
       it 'finds todo item by body' do
-        expect{MyTodo::Todo.start( %w[search --text=nfl])}.to output("ToDos FOUND: 1\nSearch based on ransack search: body_or_detailed_status_or_tags_name_or_notes_body_cont\n\nID: 1 | Created On: #{Date.today} | Tags: tag1 | Status:  | Complete: \nnfl\n").to_stdout
+        expect{MyTodo::Todo.start( %w[search --text=nfl])}.to output("ToDos FOUND: 1\nSearch based on ransack search: body_or_detailed_status_or_tags_name_or_notes_body_cont\n\nID: 1 | Created On: #{Date.today} | Tags: tag1 | Status:  | Complete: \nnfl\n\n****************************************************************************************************\n").to_stdout
       end
 
       it 'finds todo items by associated tag' do
-        expect{MyTodo::Todo.start( %w[search --text=tag1])}.to output("ToDos FOUND: 1\nSearch based on ransack search: body_or_detailed_status_or_tags_name_or_notes_body_cont\n\nID: 1 | Created On: #{Date.today} | Tags: tag1 | Status:  | Complete: \nnfl\n").to_stdout
+        expect{MyTodo::Todo.start( %w[search --text=tag1])}.to output("ToDos FOUND: 1\nSearch based on ransack search: body_or_detailed_status_or_tags_name_or_notes_body_cont\n\nID: 1 | Created On: #{Date.today} | Tags: tag1 | Status:  | Complete: \nnfl\n\n****************************************************************************************************\n").to_stdout
       end
 
       it 'finds todo items by detailed status' do
         @todo2.update!(detailed_status: 'None')
-        expect{MyTodo::Todo.start( %w[search --text=None])}.to output("ToDos FOUND: 1\nSearch based on ransack search: body_or_detailed_status_or_tags_name_or_notes_body_cont\n\nID: 2 | Created On: #{Date.today} | Tags:  | Status: None | Complete: \nrocks\n").to_stdout
+        expect{MyTodo::Todo.start( %w[search --text=None])}.to output("ToDos FOUND: 1\nSearch based on ransack search: body_or_detailed_status_or_tags_name_or_notes_body_cont\n\nID: 2 | Created On: #{Date.today} | Tags:  | Status: None | Complete: \nrocks\n\n****************************************************************************************************\n").to_stdout
       end
 
       it 'finds todo items by notes' do
-        expect{MyTodo::Todo.start( %w[search --text=note1])}.to output("ToDos FOUND: 1\nSearch based on ransack search: body_or_detailed_status_or_tags_name_or_notes_body_cont\n\nID: 3 | Created On: 2016-12-12 | Tags:  | Status:  | Complete: \nalways\n  [1] note1\n").to_stdout
+        expect{MyTodo::Todo.start( %w[search --text=note1])}.to output("ToDos FOUND: 1\nSearch based on ransack search: body_or_detailed_status_or_tags_name_or_notes_body_cont\n\nID: 3 | Created On: 2016-12-12 | Tags:  | Status:  | Complete: \nalways\n\n  [1] note1\n  ----------------------------------------------------------------------------------------------------\n****************************************************************************************************\n").to_stdout
       end
     end
 

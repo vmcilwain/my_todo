@@ -2,9 +2,12 @@
 <% @items.each do |item| -%>
 ID: <%= item.id %> | Created On: <%= item.created_at.strftime("%Y-%m-%d") %> | Tags: <%= item.tags.map(&:name).join(', ') %> | Status: <%= item.detailed_status %> | Complete: <%= item.done %>
 <%= item.body %>
+
 <% if item.notes.any? -%>
 <% item.notes.each do |note| -%>
   [<%= note.id %>] <%= note.body %>
+  <%= '-' * 100 %>
 <% end -%>
 <% end -%>
+<%= '*' * 100 %>
 <% end -%>
