@@ -26,6 +26,10 @@ module MyTodo
         say ERB.new(File.read("#{__dir__}/my_todo/templates/list.erb"), nil, '-').result(binding)
       end
 
+      def print_notes
+        say ERB.new(File.read("#{__dir__}/my_todo/templates/notes.erb"), nil, '-').result(binding)
+      end
+
       def item
         @item ||= Item.where(id: options[:id]).first
       end
@@ -41,6 +45,10 @@ module MyTodo
       def ask_status
         list_statuses
         @status = ask("Choose a status for item", default: 1)
+      end
+
+      def item_notes
+        @item_notes ||= item.notes
       end
 
       def all_items(status)
@@ -148,13 +156,13 @@ module MyTodo
       end
     end
 
-    desc "note --id=TODO_ID --body='text'", 'adds note to existing item'
+    desc "add_note --id=TODO_ID --body='text'", 'adds note to existing item'
     option :id
     option :body
-    def note
+    def add_note
       begin
         item.notes.create(body: options[:body])
-        print_list item.reload
+        print_notes #item.notes
       rescue StandardError => e
         say e.message
       end
@@ -167,6 +175,17 @@ module MyTodo
       begin
         item.notes.where(id: options[:noteid]).first.destroy!
         print_list item.reload
+      rescue StandardError => e
+        say e.message
+      end
+    end
+
+    desc 'notes(TODO_ID)', 'Display notes for a given todo'
+    option :id
+    def notes(id)
+      begin
+        item
+        print_notes
       rescue StandardError => e
         say e.message
       end
