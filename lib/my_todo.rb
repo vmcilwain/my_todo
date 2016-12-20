@@ -38,9 +38,8 @@ module MyTodo
 
     desc "create --body='some text' [--done=true] [--tags='tag1 tag2']", 'Create a todo'
     option :body
-    option :done, default: false
+    option :done
     option :tags, default: 'default'
-    option :created_at, default: DateTime.now
     def create
       begin
         say 'ToDo CREATED!'
@@ -55,7 +54,6 @@ module MyTodo
     option :id
     option :body
     option :done
-    option :updated_at, default: DateTime.now
     def update
       begin
         update_item(options)
@@ -110,10 +108,10 @@ module MyTodo
       end
     end
 
-    desc "add_note --id=TODO_ID --body='text'", 'Adds note to existing item'
+    desc "note --id=TODO_ID --body='text'", 'Adds note to existing item'
     option :id
     option :body
-    def add_note
+    def note
       begin
         item.notes.create(body: options[:body])
         print_notes
