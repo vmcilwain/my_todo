@@ -1,6 +1,6 @@
 
 <% @items.each do |item| -%>
-ID: <%= item.id %> | Created On: <%= item.created_at.strftime("%Y-%m-%d") %> | Tags: <%= item.tags.map(&:name).join(', ') %> | Status: <%= item.detailed_status %> | Complete: <%= item.done %>
+ID: <%= item.id %> | Created On: <%= item.created_at.strftime("%Y-%m-%d") %> | Tags: <%= item.tags.map(&:name).join(', ') %> | Status: <%= item.detailed_status %> | Complete: <%= item.done %> | Notes: <%= item.notes.count %>
 <%= item.body %>
 
 <% if item.notes.any? -%>
