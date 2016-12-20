@@ -21,6 +21,8 @@ class Item < ActiveRecord::Base
   # ActiveModel validation to ensure body is present
   validates :body, presence: true
 
+  # Hook to set done boolean based on detailed status
+  #(see #update_done)
   before_save :update_done
 
   #set done attribute based on detailed_status set
