@@ -43,10 +43,10 @@ will display
 ToDo CREATED!
 
 
-ID: 4
-ToDo: hello world
-Tags: default
-Complete: false
+ID: 1 | Created On: 2016-10-04 | Tags: default | Status: In Progress | Complete: false | Notes: 0
+
+hello world
+****************************************************************************************************
 ```
 
 Example of listing pending todos
@@ -58,13 +58,17 @@ my_todo list
 will display
 
 ```
-ToDos FOUND: 1
+ToDos FOUND: 2
 
+ID: 1 | Created On: 2016-10-04 | Tags: default | Status: In Progress  | Complete: false | Notes: 0
 
-ID: 3
-ToDo: hello world
-Tags: default
-Complete: false
+hello world
+****************************************************************************************************
+
+ID: 2 | Created On: 2016-10-05 | Tags: default | Status: In Progress | Complete: false | Notes: 0
+
+hello world 2
+****************************************************************************************************
 ```
 
 Use aliasing to shorten the syntax:
