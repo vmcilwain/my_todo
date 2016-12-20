@@ -23,6 +23,6 @@ class Note < ActiveRecord::Base
 
   # set updated at to the current date
   def tag_updated_at
-    self.updated_at = Date.today
+    self.updated_at = Date.today if changes.size > 0
   end
 end

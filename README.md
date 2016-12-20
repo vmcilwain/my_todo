@@ -24,7 +24,7 @@ gem install my_todo
 ```
 
 ## setup
-Create and migrate the DB
+Create and migrate the DB - This always needs to be run after every deployment to set the proper paths at the very least.
 
 `my_todo rake db:migrate`
 
@@ -43,10 +43,10 @@ will display
 ToDo CREATED!
 
 
-ID: 4
-ToDo: hello world
-Tags: default
-Complete: false
+ID: 1 | Created On: 2016-10-04 | Tags: default | Status: In Progress | Complete: false | Notes: 0
+
+hello world
+****************************************************************************************************
 ```
 
 Example of listing pending todos
@@ -58,13 +58,17 @@ my_todo list
 will display
 
 ```
-ToDos FOUND: 1
+ToDos FOUND: 2
 
+ID: 1 | Created On: 2016-10-04 | Tags: default | Status: In Progress  | Complete: false | Notes: 0
 
-ID: 3
-ToDo: hello world
-Tags: default
-Complete: false
+hello world
+****************************************************************************************************
+
+ID: 2 | Created On: 2016-10-05 | Tags: default | Status: In Progress | Complete: false | Notes: 0
+
+hello world 2
+****************************************************************************************************
 ```
 
 Use aliasing to shorten the syntax:
@@ -77,9 +81,10 @@ alias mupdate='my_todo update'
 alias mdelete='my_todo delete'
 alias mtag='my_todo tag'
 alias mrmtag='my_todo rm_tag'
-alias mnote='my_todo note'
+alias mnotes='my_todo notes'
 alias mrmnote='my_todo rm_note'
 alias msearch='my_todo search'
+alias mnote='my_todo note'
 ```
 
 Functions can be created around these actions to possibly shorten the syntax that much more

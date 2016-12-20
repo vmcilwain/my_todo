@@ -1,8 +1,9 @@
 # @author Lovell McIlwain#
 # Handles business logic for todo item
 class Item < ActiveRecord::Base
-  DETAILED_STATUSES = ['None', 'In Progress', 'Complete', 'Punted', 'Waiting Feedback']
-
+  INCOMPLETE_STATUSES = ['None', 'In Progress', 'Waiting Feedback']
+  COMPLETE_STATUSES = ['Complete', 'Punted']
+  DETAILED_STATUSES = INCOMPLETE_STATUSES + COMPLETE_STATUSES
   # ActiveRecord association to stubs
   # @note Item.first.stubs
   has_many :stubs
@@ -20,21 +21,12 @@ class Item < ActiveRecord::Base
   # ActiveModel validation to ensure body is present
   validates :body, presence: true
 
-  # Add date to created at when record is created
-  # (see #tag_created_at)
-  before_save :tag_created_at, on: :create
+  # Hook to set done boolean based on detailed status
+  #(see #update_done)
+  before_save :update_done
 
-  # Add date to updated at when record is updated
-  # (see #tag_updatedd_at)
-  before_save :tag_updated_at, on: :update
-
-  # set create at to current date
-  def tag_created_at
-    self.created_at = Date.today
-  end
-
-  # set update at to current date
-  def tag_updated_at
-    self.updated_at = Date.today
+  #set done attribute based on detailed_status set
+  def update_done
+    self.done = true if COMPLETE_STATUSES.include? self.detailed_status
   end
 end

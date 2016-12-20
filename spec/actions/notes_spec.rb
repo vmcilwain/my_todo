@@ -8,7 +8,7 @@ describe MyTodo do
       before {@todo.notes.create(body: 'What a world!')}
 
       it 'displays note' do
-        expect{MyTodo::Todo.start(%W[notes --id=#{@todo.id}])}.to output("Notes for 1: Some Body\nID: 1 | Created On: 2016-12-12\nWhat a world!\n\n\n").to_stdout
+        expect{MyTodo::Todo.start(%W[notes --id=#{@todo.id}])}.to output("Notes for 1: Some Body\nID: 1 | Created On: #{Date.today}\nWhat a world!\n\n\n").to_stdout
       end
     end
 
@@ -19,8 +19,8 @@ describe MyTodo do
     end
 
     context 'unsuccessful creation' do
-      it 'returns exception if partent item is not found' do
-        expect{MyTodo::Todo.start(%W[add_note --id=#{@todo.id + 1}])}.to output("undefined method `notes' for nil:NilClass\n").to_stdout
+      it 'returns exception if parent item is not found' do
+        expect{MyTodo::Todo.start(%W[note --id=#{@todo.id + 1}])}.to output("undefined method `notes' for nil:NilClass\n").to_stdout
       end
     end
   end
