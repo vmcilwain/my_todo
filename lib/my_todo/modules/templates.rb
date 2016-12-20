@@ -1,5 +1,4 @@
 module Templates
-  p __dir__
   def print_list
     say ERB.new(File.read("#{__dir__}/../templates/list.erb"), nil, '-').result(binding)
   end
