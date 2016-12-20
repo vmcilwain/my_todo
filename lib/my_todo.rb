@@ -38,7 +38,6 @@ module MyTodo
 
     desc "create --body='some text' [--done=true] [--tags='tag1 tag2']", 'Create a todo'
     option :body
-    option :done
     option :tags, default: 'default'
     def create
       begin
@@ -53,7 +52,6 @@ module MyTodo
     desc "update --id=TODO_ID --body='some text' [--done=true]", 'Change an existing todo'
     option :id
     option :body
-    option :done
     def update
       begin
         update_item(options)

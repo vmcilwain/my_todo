@@ -47,16 +47,9 @@ describe MyTodo do
         end
       end
 
-      describe 'create with tags and setting done attribute' do
-
-        it 'creates todo item with flag set to done' do
-          MyTodo::Todo.start(%w[create --body=wierdness_of_text --done=true])
-          todo = Item.last
-          expect(todo.done).to eq true
-        end
-
+      describe 'create with tags' do
         it 'displays the created to item with complete set to true' do
-          expect{MyTodo::Todo.start(%w[create --body=wierdness_of_text --done=true])}.to output("ToDo CREATED!\n0: None\n1: In Progress\n2: Waiting Feedback\n3: Complete\n4: Punted\nID: 1 | Created On: #{Date.today} | Tags: default | Status: In Progress | Complete: true\nwierdness_of_text\n").to_stdout
+          expect{MyTodo::Todo.start(%w[create --body=wierdness_of_text])}.to output("ToDo CREATED!\n0: None\n1: In Progress\n2: Waiting Feedback\n3: Complete\n4: Punted\nID: 1 | Created On: #{Date.today} | Tags: default | Status: In Progress | Complete: false\nwierdness_of_text\n").to_stdout
         end
       end
     end

@@ -7,7 +7,7 @@ module MyTodoActions
   def create_item(options)
     ask_status
     @item = Item.create!(options.merge({detailed_status: detailed_statuses[@status.to_i]}).except(:tags))
-    options[:tags].split(' ').each{|tag| item.tags.create(name: tag) }
+    options[:tags].split(' ').each{|tag| item.tags.create(name: tag) } if options[:tags]
   end
 
   def update_item(options)
