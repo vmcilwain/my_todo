@@ -5,14 +5,25 @@ module MyTodoActions
   end
 
   def create_item(options)
-    ask_status
-    @item = Item.create!(options.merge({detailed_status: detailed_statuses[@status.to_i]}).except(:tags))
-    options[:tags].split(' ').each{|tag| item.tags.create(name: tag) } if options[:tags]
+    @item = Item.new(options.except(:tags))
+    assign_detailed_status
+    @item.save!
+    set_tags
   end
 
   def update_item(options)
+    item.assign_attributes(options)
+    @item = item #Find a better way!!!!
+    assign_detailed_status
+    item.save!
+  end
+
+  def assign_detailed_status
     ask_status
-    new_status = detailed_statuses[@status.to_i]
-    item.detailed_status != new_status ? item.update!(options.merge({detailed_status: new_status})) : item.update!(options)
+    @item.write_attribute(:detailed_status, detailed_statuses[@status.to_i])
+  end
+
+  def set_tags
+    options[:tags].split(' ').each{|tag| @item.tags.create(name: tag) } if options[:tags]
   end
 end
