@@ -1,7 +1,7 @@
 module MyTodoActions
   def ask_status
     list_statuses
-    @status = ask("Choose a status for item", default: 1)
+    @status = ask("Choose a status for item", default: set_default_status)
   end
 
   def create_item(options)
@@ -25,5 +25,9 @@ module MyTodoActions
 
   def set_tags
     options[:tags].split(' ').each{|tag| @item.tags.create(name: tag) } if options[:tags]
+  end
+
+  def set_default_status
+    @item.detailed_status.nil? ? 1 : detailed_statuses.index(@item.detailed_status)
   end
 end
