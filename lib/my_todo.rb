@@ -80,13 +80,17 @@ module MyTodo
       print_search_results
     end
 
-    desc "tag --id=TODO_ID --tag=TAG_NAME", 'Add a tag to an existing todo'
-    option :id
-    option :tag
-    def tag
+    desc 'tag <ID> <TAGS>', 'Add a tag to a todo item'
+    def tag(id, *tags)
+      @item = Item.find_by_id(id) 
+      
       begin
-        item.tags.create!(name: options[:tag])
-        print_list item.reload
+        if tags.any?
+          @banner = "Tags added to todo #{@item.id}"
+          tags.each {|tag| @item.tags.create!(name: tag)}
+          @item = @item.reload
+          print_item
+        end
       rescue StandardError => e
         say e.message
       end
