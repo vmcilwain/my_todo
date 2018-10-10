@@ -29,4 +29,8 @@ class Item < ActiveRecord::Base
   def update_done
     self.done = true if COMPLETE_STATUSES.include? self.detailed_status
   end
+  
+  def done?
+    self.done == true ? 'Yes' : 'No'
+  end
 end
