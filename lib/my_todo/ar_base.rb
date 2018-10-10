@@ -7,7 +7,8 @@ module ArBase
   when 'development'
     "#{__dir__}/../db/todos_development.sqlite3"
   when 'test'
-    "#{__dir__}/../db/todos_test.sqlite3"
+    # "#{__dir__}/../db/todos_test.sqlite3"
+    "#{__dir__}/../../spec/db/todos_test.sqlite3"
   else
     File.expand_path("#{`echo $HOME`.chomp}/.my_todo/data/todos_production.sqlite3", __FILE__)
   end
