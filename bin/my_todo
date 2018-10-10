@@ -34,7 +34,7 @@ if exec_type == 'rake'
   # Generate standalone migration file configs for sqlite3
   if ENV['RAILS_ENV'] == 'production'
     Setup.start(%w[db_config])
-    Setup.start(%w[standard_migrations_override])
+    # Setup.start(%w[standard_migrations_override])
   end
   # Get current working directory
   pwd=Dir.pwd
