@@ -1,11 +1,11 @@
 # code climent must be loaded and started before RAILS_ENV is declared
-require "codeclimate-test-reporter"
+# require "codeclimate-test-reporter"
 ENV['CODECLIMATE_REPO_TOKEN'] = ENV['MYTODO_CC']
-CodeClimate::TestReporter.start
+# CodeClimate::TestReporter.start
 ENV["RAILS_ENV"] = 'test'
 $LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
 require 'database_cleaner'
-require 'factory_girl_rails'
+require 'factory_bot_rails'
 require 'shoulda-matchers'
 require 'byebug'
 require 'my_todo'
@@ -26,7 +26,7 @@ end
 
 Dir['spec/support/**/*.rb'].each { |f| require f }
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :item do
     body "Some Body"
   end
