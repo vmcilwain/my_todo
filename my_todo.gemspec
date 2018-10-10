@@ -27,7 +27,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'byebug', '~> 10.0.2'
   spec.add_development_dependency 'yard', '~> 0.9.5'
   spec.add_development_dependency 'simplecov', '~> 0.16.1'
-  spec.add_development_dependency 'codeclimate-test-reporter'
+  # spec.add_development_dependency 'codeclimate-test-reporter'
   spec.add_dependency "bundler", "~> 1.16.0"
   spec.add_dependency "rake", "~> 12.3.1"
   spec.add_dependency 'activerecord', '~> 5.2.1'
