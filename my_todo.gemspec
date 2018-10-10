@@ -14,14 +14,12 @@ Gem::Specification.new do |spec|
   spec.homepage      = "https://github.com/vmcilwain/my_todo"
   spec.license       = "MIT"
 
-  spec.files         = Dir["{bin,lib,db}/**/*", "LICENSE.txt", "README.md", ".standalone_migrations", 'Rakefile', 'Gemfile', 'my_todo.gemspec']
+  spec.files         = Dir["{bin,lib,db}/**/*", "LICENSE.txt", "README.md", 'Rakefile', 'Gemfile', 'my_todo.gemspec']
   spec.test_files    = Dir["spec/**/*"]
   spec.bindir        = "bin"
   spec.executables   = ['my_todo']
   spec.require_paths = ["lib"]
 
-  spec.add_development_dependency "bundler", "~> 1.16.0"
-  spec.add_development_dependency "rake", "~> 12.3.1"
   spec.add_development_dependency "rspec", "~> 3.8.0"
   spec.add_development_dependency "factory_bot_rails", "~> 4.11.1"
   spec.add_development_dependency "database_cleaner", "~> 1.7.0"
@@ -30,6 +28,8 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'yard', '~> 0.9.5'
   spec.add_development_dependency 'simplecov', '~> 0.16.1'
   spec.add_development_dependency 'codeclimate-test-reporter'
+  spec.add_dependency "bundler", "~> 1.16.0"
+  spec.add_dependency "rake", "~> 12.3.1"
   spec.add_dependency 'activerecord', '~> 5.2.1'
   spec.add_dependency 'activesupport', '~> 5.2.1'
   spec.add_dependency 'thor', '~> 0.20.0'
