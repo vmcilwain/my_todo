@@ -4,8 +4,8 @@ module MyTodoActions
     @status = ask("Choose a status for item", default: set_default_status)
   end
 
-  def create_item(options)
-    @item = Item.new(options.except(:tags))
+  def create_item
+    @item = Item.new(body: @body)
     assign_detailed_status
     @item.save!
     set_tags
@@ -24,7 +24,7 @@ module MyTodoActions
   end
 
   def set_tags
-    options[:tags].split(' ').each{|tag| @item.tags.create(name: tag) } if options[:tags]
+   @tags.each{|tag| @item.tags.create(name: tag) } if @tags
   end
 
   def set_default_status

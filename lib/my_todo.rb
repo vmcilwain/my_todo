@@ -33,13 +33,13 @@ module MyTodo
       print_list
     end
 
-    desc "create --body='some text' [--done=true] [--tags='tag1 tag2']", 'Create a todo'
-    option :body
-    option :tags, default: 'default'
-    def create
+    desc 'create "<BODY>" <TAGS [Default: general]>', 'Create a todo with optional and tags'
+    def create(body, *tags)
+      @body = body
+      @tags = tags.any? ? tags : %w[Default]
       begin
-        say 'ToDo CREATED!'
-        create_item(options)
+        @banner = 'ToDo CREATED!'
+        create_item
         print_item
       rescue ActiveRecord::RecordInvalid => e
         say e.message

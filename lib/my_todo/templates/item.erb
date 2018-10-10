@@ -1,3 +1,5 @@
+<%= @banner %>
+
 id: <%= item.id %>     notes: <%= item.notes.size %>     tags: <%= item.tags.map(&:name).join(', ') %>
 created: <%= item.created_at.strftime("%Y-%m-%d") %>     status: <%= item.detailed_status %> (done: <%= item.done? %>)     
 
