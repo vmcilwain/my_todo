@@ -16,6 +16,7 @@ require_relative 'my_todo/models/note'
 require_relative 'my_todo/modules/templates'
 require_relative 'my_todo/modules/finders'
 require_relative 'my_todo/modules/my_todo_actions'
+
 module MyTodo
   # Todo tasks using thor gem
   class Todo < Thor
