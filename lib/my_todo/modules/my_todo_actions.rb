@@ -5,15 +5,16 @@ module MyTodoActions
   end
 
   def create_item
+    @banner = 'ToDo CREATED!'
     @item = Item.new(body: @body)
     assign_detailed_status
     @item.save!
     set_tags
   end
 
-  def update_item(options)
-    item.assign_attributes(options)
-    @item = item #Find a better way!!!!
+  def update_item
+    @banner = 'ToDo UPDATED!'
+    @item.assign_attributes(body: @body, done: @done)
     assign_detailed_status
     item.save!
   end

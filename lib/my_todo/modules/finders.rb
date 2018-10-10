@@ -1,6 +1,6 @@
 module Finders
   def item
-    @item ||= Item.where(id: options[:id]).first
+    @item ||= Item.find_by_id(@id)
   end
 
   def item_notes

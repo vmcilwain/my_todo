@@ -38,21 +38,20 @@ module MyTodo
       @body = body
       @tags = tags.any? ? tags : %w[Default]
       begin
-        @banner = 'ToDo CREATED!'
         create_item
         print_item
       rescue ActiveRecord::RecordInvalid => e
         say e.message
       end
     end
-
-    desc "update --id=TODO_ID --body='some text' [--done=true]", 'Change an existing todo'
-    option :id
-    option :body
-    def update
+    
+    desc 'update <ID> "<BODY>" <DONE>', 'Update a todo item'
+    def update(id, body, done)
+      @item = Item.find_by_id(id)
+      @body = body.nil? ? @item.body : body
+      @done = done.nil? ? @item.done : done
       begin
-        update_item(options)
-        say 'ToDo UPDATED!'
+        update_item
         print_item
       rescue ActiveRecord::RecordInvalid => e
         say e.message
