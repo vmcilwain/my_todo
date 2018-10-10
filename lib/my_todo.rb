@@ -80,9 +80,9 @@ module MyTodo
       print_search_results
     end
 
-    desc 'tag <ID> <TAGS>', 'Add a tag to a todo item'
+    desc 'tag <ID> <TAGS>', 'Add tags to a todo item'
     def tag(id, *tags)
-      @item = Item.find_by_id(id) 
+      @item = Item.find_by_id(id)
       
       begin
         if tags.any?
@@ -96,13 +96,16 @@ module MyTodo
       end
     end
 
-    desc 'rm_tag --id=TODO_ID --tag=TAG_NAME', 'Remove tag from an existing todo'
-    option :id
-    option :tag
-    def rm_tag
+    desc 'rm_tag <ID>  <TAGS>', 'Remove tags from a todo'
+    def rm_tag(id, *tags)
+      @item = Item.find_by_id(id)
+      
       begin
-        item.tags.where(name: options[:tag]).first.destroy!
-        print_list item.reload
+        if tags.any?
+          @banner = "Tags removed from todo #{@item.id}"
+          @item.tags.where(name: tags).destroy_all
+          print_item
+        end
       rescue StandardError => e
         say e.message
       end
