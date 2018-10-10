@@ -8,13 +8,15 @@ module Finders
   end
 
   def all_items
-    @items = case options[:status]
+    @items = case @status
             when 'all'
               Item.all
             when 'done'
               Item.where(done: true)
-            else
+            when 'undone'
               Item.where(done: false)
+            else
+              say 'Unknown status!'
             end
   end
 

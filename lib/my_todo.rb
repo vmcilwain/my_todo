@@ -18,22 +18,18 @@ require_relative 'my_todo/modules/finders'
 require_relative 'my_todo/modules/my_todo_actions'
 
 module MyTodo
-  # Todo tasks using thor gem
   class Todo < Thor
-    # Add additional thor tasks
     include Thor::Actions
 
-    # Private methods
     no_commands do
       include Templates
       include Finders
       include MyTodoActions
     end
 
-    desc 'list --status=done', 'List todos. Default: undone, [all], [done], [undone]'
-    option :status, default: nil
-    def list
-      say "ToDos FOUND: #{all_items.count}"
+    desc 'list <STATUS>', 'List todos. Default: undone, [all], [done], [undone]'
+    def list(status='undone')
+      @status = status
       print_list
     end
 
