@@ -1,6 +1,5 @@
 # @author Lovell McIlwain
 # Handles running the todo application
-require "#{__dir__}/my_todo/version"
 require 'thor'
 require 'erb'
 require 'sqlite3'
@@ -8,6 +7,7 @@ require 'active_record'
 require 'active_model'
 require 'yaml'
 require 'ransack'
+require_relative "../lib/my_todo/version"
 require_relative 'my_todo/ar_base'
 require_relative 'my_todo/models/item'
 require_relative 'my_todo/models/stub'
