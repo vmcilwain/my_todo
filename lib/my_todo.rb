@@ -111,12 +111,12 @@ module MyTodo
       end
     end
 
-    desc "note --id=TODO_ID --body='text'", 'Adds note to existing item'
-    option :id
-    option :body
-    def note
+    desc 'note <ID> "<TEXT>"', 'Adds note to existing item'
+    def note(id, text="")
+      @item = Item.find_by_id(id)
+      
       begin
-        item.notes.create(body: options[:body])
+        @item.notes.create(body: text) unless text.empty?
         print_notes
       rescue StandardError => e
         say e.message
