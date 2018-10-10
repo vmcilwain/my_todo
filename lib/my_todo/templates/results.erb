@@ -1,6 +1,12 @@
+ToDos FOUND: <%= @items.count %>
+
+Search Text: <%= @text %>
 
 <% @items.each do |item| -%>
-ID: <%= item.id %> | Created On: <%= item.created_at.strftime("%Y-%m-%d") %> | Tags: <%= item.tags.map(&:name).join(', ') %> | Status: <%= item.detailed_status %> | Complete: <%= item.done %> | Notes: <%= item.notes.count %>
+
+id: <%= item.id %>     notes: <%= item.notes.size %>     tags: <%= item.tags.map(&:name).join(', ') %>
+created: <%= item.created_at.strftime("%Y-%m-%d") %>     status: <%= item.detailed_status %> (done: <%= item.done? %>)
+
 <%= item.body %>
 
 <% if item.notes.any? -%>

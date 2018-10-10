@@ -33,10 +33,11 @@ module MyTodo
       print_list
     end
 
-    desc 'create "<BODY>" <TAGS [Default: general]>', 'Create a todo with optional and tags'
+    desc 'create "<BODY>" <TAGS [Default: general]>', 'Create a todo item with optional and tags'
     def create(body, *tags)
       @body = body
       @tags = tags.any? ? tags : %w[Default]
+      
       begin
         create_item
         print_item
@@ -50,6 +51,7 @@ module MyTodo
       @item = Item.find_by_id(id)
       @body = body.nil? ? @item.body : body
       @done = done.nil? ? @item.done : done
+      
       begin
         update_item
         print_item
@@ -58,9 +60,11 @@ module MyTodo
       end
     end
 
-    desc 'delete', 'Destroy a todo'
-    option :id, required: true
-    def delete
+    desc 'delete <ID>', 'Destroy a todo item'
+    # option :id, required: true
+    def delete(id)
+      @item = Item.find_by_id(id)
+      
       begin
         item.destroy!
         say 'ToDo DESTROYED!'
@@ -69,12 +73,10 @@ module MyTodo
       end
     end
 
-    desc 'search', 'Find a todo by item body, tag name or note body'
-    option :text, required: true
-    def search
-      @items = Item.ransack(body_or_detailed_status_or_tags_name_or_notes_body_cont: options[:text]).result
-      say "ToDos FOUND: #{@items.count}"
-      say "Search based on ransack search: body_or_detailed_status_or_tags_name_or_notes_body_cont"
+    desc 'search "<TEXT>"', 'Find a todo by item body, tag name, status or note body'
+    def search(text="")
+      @text = text
+      @items = Item.ransack(body_or_detailed_status_or_tags_name_or_notes_body_cont: @text).result
       print_search_results
     end
 
