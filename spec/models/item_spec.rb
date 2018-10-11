@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Item, type: :model do
-  let(:item) {FactoryGirl.create :item}
+  let(:item) {FactoryBot.create :item}
 
   it {should have_many :stubs}
   it {should have_many :tags}
