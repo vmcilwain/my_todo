@@ -104,7 +104,7 @@ module MyTodo
           @item = Item.find_by_id(id)
       
           begin
-            @banner = "Note removed from todo #{@item.id}"
+            @banner = "Note removed from item: #{@item.id}"
             @item.notes.where(id: note_ids).destroy_all
             print_item
           rescue StandardError => e

@@ -2,24 +2,23 @@ require 'spec_helper'
 
 describe MyTodo do
   describe 'rm_note' do
-    before do
-      @todo = FactoryGirl.create :item
-      @todo.notes.create(body: 'Body of text')
-    end
+    let(:note) {FactoryBot.create :note}
 
     context 'a successful delete' do
-      before {MyTodo::Todo.start(%W[rm_note --id=#{@todo.id} --noteid=#{@todo.notes.first.id}])}
-      subject {@todo.reload.notes}
+      before {MyTodo::Todo.start(['rm_note', note.item.id, note.id])}
+      
+      subject {note.item.reload.notes}
+      
       it {is_expected.to eq []}
     end
 
     context 'an unsuccessful delete' do
       it 'returns exception if item is not found' do
-        expect {MyTodo::Todo.start(%W[rm_note --id=#{@todo.id + 1} --noteid=#{@todo.notes.first.id}])}.to output("undefined method `notes' for nil:NilClass\n").to_stdout
+        expect {MyTodo::Todo.start(['rm_note', note.item.id + 1, note.id])}.to output("undefined method `id' for nil:NilClass\n").to_stdout
       end
 
       it 'returns exception if note is not found' do
-        expect {MyTodo::Todo.start(%W[rm_note --id=#{@todo.id} --noteid=#{@todo.notes.first.id + 1}])}.to output("undefined method `destroy!' for nil:NilClass\n").to_stdout
+        expect {MyTodo::Todo.start(['rm_note', note.item.id,  0])}.to output("Note removed from item: #{note.item.id}\n\nid: #{note.item.id}     notes: #{note.item.notes.count}     tags: \ncreated: #{Date.today}     status:  (done: No)     \n\n#{note.item.body}\n").to_stdout
       end
     end
   end
