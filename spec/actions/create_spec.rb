@@ -34,7 +34,7 @@ describe MyTodo do
         end
 
         it 'displays the created todo item' do
-          expect{MyTodo::Todo.start(['create', body])}.to output("#{statuses}\nToDo CREATED!\n\nid: 1     notes: 0     tags: Default\ncreated: #{Date.today}     status: In Progress (done: No)     \n\n#{body}\n").to_stdout
+          expect{MyTodo::Todo.start(['create', body])}.to output("#{statuses}\nItem Created\n\nid: 1     notes: 0     tags: Default\ncreated: #{Date.today}     status: In Progress (done: No)     \n\n#{body}\n").to_stdout
         end
       end
 
@@ -44,13 +44,13 @@ describe MyTodo do
         end
 
         it 'displays the created todo item with tag' do
-          expect{MyTodo::Todo.start(['create', body, 'tag1'])}.to output("#{statuses}\nToDo CREATED!\n\nid: 1     notes: 0     tags: tag1\ncreated: #{Date.today}     status: In Progress (done: No)     \n\n#{body}\n").to_stdout
+          expect{MyTodo::Todo.start(['create', body, 'tag1'])}.to output("#{statuses}\nItem Created\n\nid: 1     notes: 0     tags: tag1\ncreated: #{Date.today}     status: In Progress (done: No)     \n\n#{body}\n").to_stdout
         end
       end
 
       describe 'create a completed item' do
         xit 'displays the created to item with complete set to true', 'look into being able to set this option again' do
-          expect{MyTodo::Todo.start(['create', body])}.to output("#{statuses}\nToDo CREATED!\n\nid: 1     notes: 0     tags: Default\ncreated: #{Date.today}     status: In Progress (done: Yes)     \n\n#{body}\n").to_stdout
+          expect{MyTodo::Todo.start(['create', body])}.to output("#{statuses}\nItem Created\n\nid: 1     notes: 0     tags: Default\ncreated: #{Date.today}     status: In Progress (done: Yes)     \n\n#{body}\n").to_stdout
         end
       end
     end

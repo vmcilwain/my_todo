@@ -18,7 +18,7 @@ describe MyTodo do
       end
 
       it 'returns exception if note is not found' do
-        expect {MyTodo::Todo.start(['rm_note', note.item.id,  0])}.to output("Note removed from item: #{note.item.id}\n\nid: #{note.item.id}     notes: #{note.item.notes.count}     tags: \ncreated: #{Date.today}     status:  (done: No)     \n\n#{note.item.body}\n").to_stdout
+        expect {MyTodo::Todo.start(['rm_note', note.item.id,  0])}.to output("Note removed from item: #{note.item.id}\n\nid: #{note.item.id}     notes: #{note.item.notes.count}     tags: \ncreated: #{Date.today}     status: None (done: No)     \n\n#{note.item.body}\n").to_stdout
       end
     end
   end

@@ -43,7 +43,7 @@ module MyTodo
       
           begin
             item.destroy!
-            say 'Item Deleted!'
+            say 'Item Deleted'
           rescue StandardError => e
             say e.message
           end

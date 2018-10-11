@@ -1,4 +1,4 @@
-ToDos FOUND: <%= @items.count %>
+Items Found: <%= @items.count %>
 
 <% @items.each do |item| -%>
 id: <%= item.id %>     notes: <%= item.notes.size %>     tags: <%= item.tags.map(&:name).join(', ') %>

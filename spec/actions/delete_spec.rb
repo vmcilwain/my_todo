@@ -15,7 +15,7 @@ describe MyTodo do
     end
     
     it 'displays a notice' do
-      expect{MyTodo::Todo.start(['delete', todo.id])}.to output("ToDo DESTROYED!\n").to_stdout
+      expect{MyTodo::Todo.start(['delete', todo.id])}.to output("Item Deleted\n").to_stdout
     end
   end
 end
