@@ -22,11 +22,11 @@ This code is provided "as is" and any express or implied warranties, including t
 * Search
 * Notes
 
+## Requirements
+
+Ruby 2.2 and above
+
 ## Installation
-
-To install this gem onto your system
-
-requires ruby 2.2 and above
 
 ```ruby
 gem install my_todo
