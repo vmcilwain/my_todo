@@ -5,7 +5,7 @@ module ArBase
   # Set path based on bin/my_todo
   path = case ENV['RAILS_ENV']
   when 'development'
-    "#{__dir__}/../db/todos_development.sqlite3"
+    "#{__dir__}/../../db/todos_development.sqlite3"
   when 'test'
     # "#{__dir__}/../db/todos_test.sqlite3"
     "#{__dir__}/../../spec/db/todos_test.sqlite3"
