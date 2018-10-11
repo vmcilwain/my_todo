@@ -23,7 +23,7 @@ module MyTodo
         end
     
         desc 'update <ID> "<BODY>" <DONE>', 'Update a todo item'
-        def update(id, body, done)
+        def update(id, body=nil, done=nil)
           @item = Item.find_by_id(id)
           @body = body.nil? ? @item.body : body
           @done = done.nil? ? @item.done : done
@@ -43,7 +43,7 @@ module MyTodo
       
           begin
             item.destroy!
-            say 'ToDo DESTROYED!'
+            say 'Item Deleted!'
           rescue StandardError => e
             say e.message
           end

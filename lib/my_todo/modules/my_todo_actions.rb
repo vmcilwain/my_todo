@@ -5,7 +5,7 @@ module MyTodoActions
   end
 
   def create_item
-    @banner = 'ToDo CREATED!'
+    @banner = 'Item Created'
     @item = Item.new(body: @body)
     assign_detailed_status
     @item.save!
@@ -13,7 +13,7 @@ module MyTodoActions
   end
 
   def update_item
-    @banner = 'ToDo UPDATED!'
+    @banner = 'Item Updated'
     @item.assign_attributes(body: @body, done: @done)
     assign_detailed_status
     item.save!

@@ -9,7 +9,7 @@ describe MyTodo do
     let(:body) {Faker::Lorem.words(5).join("\s")}
     let(:statuses) {"0: None\n1: In Progress\n2: Waiting Feedback\n3: Complete\n4: Punted"}
     
-    before {expect(Thor::LineEditor).to receive(:readline).with("Choose a status for item (1) ", {:default=>1}).and_return("")}
+    before {expect(Thor::LineEditor).to receive(:readline).with("Choose a status for item (1) ", {default:1}).and_return("")}
 
     context 'successful creation' do
       describe 'creation without tags or setting done attribute' do
