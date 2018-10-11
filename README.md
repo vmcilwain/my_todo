@@ -39,9 +39,12 @@ Create and migrate the database. This should always be done after every version 
 mytodo rake db:migrate
 ```
 ## Usage
-Type `mytodo` to see the help texts
 
-Example of creating a todo item
+Type `mytodo` to see the help text
+
+### Examples
+
+#### Creating a todo item
 
 ```ruby
 mytodo create 'hello world'
@@ -72,7 +75,7 @@ created: 2018-10-11     status: In Progress (done: No)
 hello world
 ```
 
-Example of listing pending todos
+#### List pending todo items
 
 ```ruby
 mytodo list
@@ -88,9 +91,6 @@ created: 2018-10-11     status: In Progress (done: No)
 
 hello world
 ****************************************************************************************************
-```
-
-Use aliasing to shorten the syntax:
 ```
 
 ## Removing the gem and data
