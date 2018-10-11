@@ -32,7 +32,7 @@ Ruby 2.2 and above
 gem install my_todo
 ```
 
-## setup
+## Setup
 Create and migrate the database. This should always be done after every version update to ensure proper paths are set at a minium.
 
 ```ruby
