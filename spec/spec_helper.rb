@@ -36,6 +36,10 @@ FactoryBot.define do
     item
     body {Faker::Lorem.paragraph}
   end
+  
+  factory :tag do
+    name {Faker::Lorem.word}
+  end
 end
 
 RSpec.configure do |config|

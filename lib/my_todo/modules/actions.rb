@@ -78,7 +78,7 @@ module MyTodo
       
           begin
             if tags.any?
-              @banner = "Tags removed from todo #{@item.id}"
+              @banner = "Tags removed from item #{@item.id}"
               @item.tags.where(name: tags).destroy_all
               print_item
             end
