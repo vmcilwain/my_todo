@@ -31,6 +31,11 @@ FactoryBot.define do
   factory :item do
     body { Faker::Lorem.paragraph }
   end
+  
+  factory :note do
+    item
+    body {Faker::Lorem.paragraph}
+  end
 end
 
 RSpec.configure do |config|
