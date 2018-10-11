@@ -14,7 +14,7 @@ Gem::Specification.new do |spec|
   spec.homepage      = "https://github.com/vmcilwain/my_todo"
   spec.license       = "MIT"
 
-  spec.files         = Dir["{bin,lib,db}/**/*", "LICENSE.txt", "README.md", 'Rakefile', 'Gemfile', 'my_todo.gemspec']
+  spec.files         = Dir["{bin,lib,db}/**/*", "LICENSE.txt", "README.md", 'Rakefile', 'Gemfile', 'mytodo.gemspec']
   spec.test_files    = Dir["spec/**/*"]
   spec.bindir        = "bin"
   spec.executables   = ['my_todo']
