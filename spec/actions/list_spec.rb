@@ -2,21 +2,22 @@ require 'spec_helper'
 
 describe MyTodo do
   describe 'list' do
+    let(:todo1) {FactoryBot.create :item, done: true}
+    let(:todo2) {FactoryBot.create :item}
     before do
-      @todo1 = FactoryGirl.create :item, done: true
-      @todo2 = FactoryGirl.create :item
+      todo1;todo2
     end
 
     it 'displays items with done set to true' do
-      expect{MyTodo::Todo.start(%w[list --status=done])}.to output("ToDos FOUND: 1\n\nID: 1 | Created On: #{Date.today} | Tags:  | Status:  | Complete: true | Notes: 0\n\nSome Body\n****************************************************************************************************\n").to_stdout
+      expect{MyTodo::Todo.start(['list', 'done'])}.to output("ToDos FOUND: 1\n\nid: 1     notes: 0     tags: \ncreated: #{Date.today}     status:  (done: Yes)\n\n#{todo1.body}\n#{'*' * 100}\n").to_stdout
     end
 
     it 'displays items with done set to false by default' do
-      expect{MyTodo::Todo.start(%w[list])}.to output("ToDos FOUND: 1\n\nID: 2 | Created On: #{Date.today} | Tags:  | Status:  | Complete: false | Notes: 0\n\nSome Body\n****************************************************************************************************\n").to_stdout
+      expect{MyTodo::Todo.start(['list'])}.to output("ToDos FOUND: 1\n\nid: 2     notes: 0     tags: \ncreated: #{Date.today}     status:  (done: No)\n\n#{todo2.body}\n#{'*' * 100}\n").to_stdout
     end
 
     it 'displays all items' do
-      expect{MyTodo::Todo.start(%w[list --status=all])}.to output("ToDos FOUND: 2\n\nID: 1 | Created On: #{Date.today} | Tags:  | Status:  | Complete: true | Notes: 0\n\nSome Body\n****************************************************************************************************\nID: 2 | Created On: #{Date.today} | Tags:  | Status:  | Complete: false | Notes: 0\n\nSome Body\n****************************************************************************************************\n").to_stdout
+      expect{MyTodo::Todo.start(['list', 'all'])}.to output("ToDos FOUND: 2\n\nid: 1     notes: 0     tags: \ncreated: #{Date.today}     status:  (done: Yes)\n\n#{todo1.body}\n#{'*' * 100}\nid: 2     notes: 0     tags: \ncreated: #{Date.today}     status:  (done: No)\n\n#{todo2.body}\n#{'*' * 100}\n").to_stdout
     end
   end
 end
