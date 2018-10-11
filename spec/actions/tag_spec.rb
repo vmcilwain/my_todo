@@ -2,24 +2,26 @@ require 'spec_helper'
 
 describe MyTodo do
   describe 'add_tag' do
+    let(:item) {FactoryBot.create :item}
+    
     context 'a successful add' do
-      before do
-        @todo = FactoryGirl.create(:item)
-        MyTodo::Todo.start(%W[tag --id=#{@todo.id} --tag=tag1])
-      end
-      subject {@todo.tags}
-      it {is_expected.to include(Tag.first)}
+      
+      
+      before {MyTodo::Todo.start(['tag', item.id, 'tag1'])}
+      
+      subject {item.tags.map(&:name)}
+      
+      it {is_expected.to eq ['tag1']}
     end
 
     context 'an unsuccessful add' do
-      before {@todo = FactoryGirl.create(:item)}
 
-      it 'returns a validation error when tag name is missing' do
-        expect{MyTodo::Todo.start(%W[tag --id=#{@todo.id} --tag=])}.to output("Validation failed: Name can't be blank\n").to_stdout
+      xit 'returns a validation error when tag name is missing', 'needs addressing' do
+        expect{MyTodo::Todo.start(['tag', item.id])}.to output("Validation failed: Name can't be blank\n").to_stdout
       end
 
       it 'returns nil exception' do
-        expect{MyTodo::Todo.start(%W[tag --id=#{@todo.id + 1} --tag=tag1])}.to output("undefined method `tags' for nil:NilClass\n").to_stdout
+        expect{MyTodo::Todo.start(['tag', item.id + 1, 'tag2'])}.to output("undefined method `id' for nil:NilClass\n").to_stdout
       end
     end
   end
