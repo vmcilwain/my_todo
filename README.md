@@ -17,106 +17,105 @@ Often times while coding either at home or at work, I found myself needing to cr
 This code is provided "as is" and any express or implied warranties, including the implied warranties of merchantability and fitness for a particular purpose are disclaimed. In no event shall I or contributors be liable for any direct, indirect, incidental, special, exemplary, or consequential damages (including, but not limited to, procurement of substitute goods or services; loss of use, data, or profits; or business interruption) sustained by you or a third party, however caused and on any theory of liability, whether in contract, strict liability, or tort arising in any way out of the use of this code, even if advised of the possibility of such damage.
 
 ## Features
-* SQLIte3 backend (database is located in $HOME/.my_todo)
-* CRUD actions for todo items (Create, Read, Update & Delete)
-* Tag / Untag todo items to group / ungroup them.
-* Search for todo items
-* Add / Remove additional notes to todo items
+
+* Tagging
+* Search
+* Notes
 
 ## Installation
 
 To install this gem onto your system
+
+requires ruby 2.2 and above
 
 ```ruby
 gem install my_todo
 ```
 
 ## setup
-Create and migrate the DB - This always needs to be run after every deployment to set the proper paths at the very least.
+Create and migrate the database. This should always be done after every version update to ensure proper paths are set at a minium.
 
-`my_todo rake db:migrate`
-
+```ruby
+mytodo rake db:migrate
+```
 ## Usage
-Simply type `my_todo` to see a list of commands
+Type `mytodo` to see the help texts
 
 Example of creating a todo item
 
 ```ruby
-my_todo create --body='hello world'
+mytodo create 'hello world'
 ```
 
-will display
+will then ask if you want to give it an initial status
 
 ```
-ToDo CREATED!
+0: None
+1: In Progress
+2: Waiting Feedback
+3: Complete
+4: Punted
 
+Choose a status for item (1)
+```
 
-ID: 1 | Created On: 2016-10-04 | Tags: default | Status: In Progress | Complete: false | Notes: 0
+`In Progress` is the default (just hit enter to keep going). Setting it to None will leave it blank.
+
+Once selected and `Enter`/`Return` is pressed, something like the following should display:
+ 
+```
+Item Created
+
+id: 1     notes: 0     tags: Default
+created: 2018-10-11     status: In Progress (done: No)
 
 hello world
-****************************************************************************************************
 ```
 
 Example of listing pending todos
 
 ```ruby
-my_todo list
+mytodo list
 ```
 
-will display
+will display something like
 
 ```
-ToDos FOUND: 2
+Items Found: 1
 
-ID: 1 | Created On: 2016-10-04 | Tags: default | Status: In Progress  | Complete: false | Notes: 0
+id: 1     notes: 0     tags: Default
+created: 2018-10-11     status: In Progress (done: No)
 
 hello world
-****************************************************************************************************
-
-ID: 2 | Created On: 2016-10-05 | Tags: default | Status: In Progress | Complete: false | Notes: 0
-
-hello world 2
 ****************************************************************************************************
 ```
 
 Use aliasing to shorten the syntax:
 ```
-#aliases
-alias m='my_todo'
-alias mlist='my_todo list'
-alias mcreate='my_todo create'
-alias mupdate='my_todo update'
-alias mdelete='my_todo delete'
-alias mtag='my_todo tag'
-alias mrmtag='my_todo rm_tag'
-alias mnotes='my_todo notes'
-alias mrmnote='my_todo rm_note'
-alias msearch='my_todo search'
-alias mnote='my_todo note'
-```
 
-Functions can be created around these actions to possibly shorten the syntax that much more
+## Removing the gem and data
+
+Uninstall the gem: `gem uninstall my_todo`
+Delete `$HOME/.my_todo` to remove the data
 
 ## Development
 
-After checking out the repo, run `bin/setup` to install dependencies. Then `RAILS_ENV=development bin/my_todo rake db:migrate` to create the development DB. You can also run `RAILS_ENV=development bin/console` for an interactive prompt that will allow you to experiment.
+After checking out the repo, run `bin/setup` to install dependencies. Then `RAILS_ENV=development bin/mytodo rake db:migrate` to create the development DB (in the db directory). You can also run `RAILS_ENV=development bin/console` for an interactive prompt that will allow you to experiment.
 
-NOTE: In development, all commands must be run with the RAILS_ENV included. This is to make sure any changes made go to the right db. Any commands ran without the RAILS_ENV specified will default to production.
+##### Note: In development, all commands must be run with the RAILS_ENV included. This is to make sure any data written made go to the right db. Any commands ran without the RAILS_ENV specified will default to production. Example: `RAILS_ENV=development bin/mytodo list`
 
 ## Testing
 
-Run `RAILS_ENV=test bin/my_todo rake db:migrate` to create the test db. Then run `RAILS_ENV=test bundle exec rake` to run the RSpec tests.
+Run `RAILS_ENV=test bin/mytodo rake db:migrate` to create the test db (in spec/db). Then run `bundle exec rake` to run the RSpec tests.
 
 ## Releasing
+
 To release a new version,
 * update the version number in `version.rb`
 * tag the the code `git tag v1.0.0`
 * push the tag `git push --tags`
 * then run `bundle exec rake build`
 * `gem push pkg/my_todo-verion`
-
-## Removing the gem
-To remove the gem simply type `gem uninstall my_todo`. Along with this, you will need to remove `$HOME/.my_todo` to remove the database.
 
 ## Contributing
 
