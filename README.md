@@ -84,18 +84,24 @@ mytodo list
 will display something like
 
 ```
-Items Found: 1
+Items Found: 2
 
 id: 1     notes: 0     tags: Default
 created: 2018-10-11     status: In Progress (done: No)
 
 hello world
 ****************************************************************************************************
+id: 2     notes: 0     tags: Default
+created: 2018-10-11     status: In Progress (done: No)
+
+goodbye world
+****************************************************************************************************
 ```
 
 ## Removing the gem and data
 
 Uninstall the gem: `gem uninstall my_todo`
+
 Delete `$HOME/.my_todo` to remove the data
 
 ## Development
