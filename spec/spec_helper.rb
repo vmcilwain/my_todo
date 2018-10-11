@@ -30,6 +30,7 @@ Dir['spec/support/**/*.rb'].each { |f| require f }
 FactoryBot.define do
   factory :item do
     body { Faker::Lorem.paragraph }
+    detailed_status {'None'}
   end
   
   factory :note do
