@@ -7,6 +7,7 @@ $LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
 require 'database_cleaner'
 require 'factory_bot_rails'
 require 'shoulda-matchers'
+require 'faker'
 require 'byebug'
 require 'my_todo'
 require 'simplecov'
@@ -28,7 +29,7 @@ Dir['spec/support/**/*.rb'].each { |f| require f }
 
 FactoryBot.define do
   factory :item do
-    body "Some Body"
+    body { Faker::Lorem.paragraph }
   end
 end
 
@@ -39,3 +40,5 @@ RSpec.configure do |config|
   config.include(Shoulda::Matchers::ActiveModel, type: :model)
   config.include(Shoulda::Matchers::ActiveRecord, type: :model)
 end
+
+# rubocop   --require rubocop-rspec   --only FactoryBot/AttributeDefinedStatically   --auto-correct
