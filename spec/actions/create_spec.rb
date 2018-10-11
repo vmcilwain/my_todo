@@ -6,9 +6,10 @@ describe MyTodo do
   end
 
   describe 'create' do
-    before do
-      expect(Thor::LineEditor).to receive(:readline).with("Choose a status for item (1) ", {:default=>1}).and_return("")
-    end
+    let(:body) {Faker::Lorem.words(5).join("\s")}
+    let(:statuses) {"0: None\n1: In Progress\n2: Waiting Feedback\n3: Complete\n4: Punted"}
+    
+    before {expect(Thor::LineEditor).to receive(:readline).with("Choose a status for item (1) ", {:default=>1}).and_return("")}
 
     context 'successful creation' do
       describe 'creation without tags or setting done attribute' do
@@ -17,46 +18,47 @@ describe MyTodo do
         end
 
         it 'creates a todo item' do
-          expect{MyTodo::Todo.start(%w(create --body=wierdness_of_text))}.to change{Item.count}.by(1)
+          expect{MyTodo::Todo.start(['create', body])}.to change{Item.count}.by(1)
         end
 
         it "sets tags to 'default' when tags option is not present" do
-          MyTodo::Todo.start(%w[create --body=wierdness_of_text])
+          MyTodo::Todo.start(['create', body])
           todo = Item.last
-          expect(todo.tags.map(&:name)).to eq ['default']
+          expect(todo.tags.map(&:name)).to eq ['Default']
         end
 
         it 'sets done to false by when done option is not present' do
-          MyTodo::Todo.start(%w[create --body=wierdness_of_text])
+          MyTodo::Todo.start(['create', body])
           todo = Item.last
           expect(todo.done).to eq false
         end
 
         it 'displays the created todo item' do
-          expect{MyTodo::Todo.start(%w(create --body=wierdness_of_text))}.to output("ToDo CREATED!\n0: None\n1: In Progress\n2: Waiting Feedback\n3: Complete\n4: Punted\nID: 1 | Created On: #{Date.today} | Tags: default | Status: In Progress | Complete: false\nwierdness_of_text\n").to_stdout
+          expect{MyTodo::Todo.start(['create', body])}.to output("#{statuses}\nToDo CREATED!\n\nid: 1     notes: 0     tags: Default\ncreated: #{Date.today}     status: In Progress (done: No)     \n\n#{body}\n").to_stdout
         end
       end
 
       describe 'creation with tags and without setting done attribute' do
         it 'creates associated tag' do
-          expect{MyTodo::Todo.start(%w[create --body=wierdness_of_text --tags=tag1])}.to change{Tag.count}.by(1)
+          expect{MyTodo::Todo.start(['create', body, 'tag1'])}.to change{Tag.count}.by(1)
         end
 
         it 'displays the created todo item with tag' do
-          expect{MyTodo::Todo.start(%w(create --body=wierdness_of_text --tags=tag1))}.to output("ToDo CREATED!\n0: None\n1: In Progress\n2: Waiting Feedback\n3: Complete\n4: Punted\nID: 1 | Created On: #{Date.today} | Tags: tag1 | Status: In Progress | Complete: false\nwierdness_of_text\n").to_stdout
+          expect{MyTodo::Todo.start(['create', body, 'tag1'])}.to output("#{statuses}\nToDo CREATED!\n\nid: 1     notes: 0     tags: tag1\ncreated: #{Date.today}     status: In Progress (done: No)     \n\n#{body}\n").to_stdout
         end
       end
 
-      describe 'create with tags' do
-        it 'displays the created to item with complete set to true' do
-          expect{MyTodo::Todo.start(%w[create --body=wierdness_of_text])}.to output("ToDo CREATED!\n0: None\n1: In Progress\n2: Waiting Feedback\n3: Complete\n4: Punted\nID: 1 | Created On: #{Date.today} | Tags: default | Status: In Progress | Complete: false\nwierdness_of_text\n").to_stdout
+      describe 'create a completed item' do
+        xit 'displays the created to item with complete set to true', 'look into being able to set this option again' do
+          expect{MyTodo::Todo.start(['create', body])}.to output("#{statuses}\nToDo CREATED!\n\nid: 1     notes: 0     tags: Default\ncreated: #{Date.today}     status: In Progress (done: Yes)     \n\n#{body}\n").to_stdout
         end
       end
     end
 
     context 'unsuccessful creation' do
-      it 'returns error message when body is missing' do
-        expect{MyTodo::Todo.start(%w(create))}.to output("ToDo CREATED!\n0: None\n1: In Progress\n2: Waiting Feedback\n3: Complete\n4: Punted\nValidation failed: Body can't be blank\n").to_stdout
+      xit 'returns error message when body is missing', 'look into being able to set this option again' do
+        expect{MyTodo::Todo.start(['create'])}.to output("ERROR: \"my_todo create\" was called with no arguments\n
+Usage: \"my_todo create \"<BODY>\" <TAGS> [Default: general]>\"").to_stdout
       end
     end
   end
