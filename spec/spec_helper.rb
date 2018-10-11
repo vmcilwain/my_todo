@@ -51,4 +51,5 @@ RSpec.configure do |config|
   config.include(Shoulda::Matchers::ActiveRecord, type: :model)
 end
 
+# If I need to check rubocop
 # rubocop   --require rubocop-rspec   --only FactoryBot/AttributeDefinedStatically   --auto-correct
