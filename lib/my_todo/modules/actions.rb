@@ -9,7 +9,7 @@ module MyTodo
           print_list
         end
 
-        desc 'create "<BODY>" <TAGS [Default: general]>', 'Create a todo item with optional and tags'
+        desc "create \"<BODY>\" <TAGS> [Default: general]>", 'Create a todo item with optional and tags'
         def create(body, *tags)
           @body = body
           @tags = tags.any? ? tags : %w[Default]
