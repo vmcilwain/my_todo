@@ -24,7 +24,7 @@ This code is provided "as is" and any express or implied warranties, including t
 
 ## Requirements
 
-Ruby 2.2 and above
+Ruby 2.2.2 and above
 
 ## Installation
 
